@@ -4,17 +4,17 @@ import Footer from "./components/footer/Footer";
 
 const RootLayout = () => {
   return (
-    <>
+    <div className="h-[100vh]">
       <nav>
         <Header />
       </nav>
       <main>
         <Outlet />
       </main>
-      <footer>
+      <footer className="absolute bottom-0 w-full">
         <Footer />
       </footer>
-    </>
+    </div>
   );
 };
 
