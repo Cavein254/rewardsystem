@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  mariadb:
+    image: mariadb:10.6.17-focal
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: reward
+      MYSQL_USER: cave
+      MYSQL_PASSWORD: cave
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mariadb
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - mariadb
+    networks:
+      - backend
+
+volumes:
+  mariadb_data:
+
+networks:
+  backend:
