@@ -6,7 +6,13 @@ const authRouter = express.Router();
 
 authRouter.get(
   "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
+  passport.authenticate("google", {
+    scope: [
+      "profile",
+      "email",
+      "https://www.googleapis.com/auth/user.gender.read",
+    ],
+  })
 );
 
 authRouter.get(
@@ -21,29 +27,10 @@ authRouter.get(
       where: {
         email: email,
       },
-      include: {
-        profile: true,
-      },
     });
-    if (user.profile?.[0]?.id) {
-      const credentials = {
-        userId: user.id,
-        profileId: user.profile[0].id,
-      };
-      res.cookie("credentials", credentials, { httpOnly: true });
-      res.writeHead(302, {
-        location: process.env.FRONTEND_REDIRECT_URL as string,
-      });
-      res.end();
-    } else {
-      //user has no profile. User needs to be forced to create one
-      const credentials = {
-        userId: user.id,
-      };
-      res.cookie("credentials", credentials, { httpOnly: true });
-      res.redirect(process.env.FRONTEND_PROFILE_REDIRECT_URL as string);
-      res.end();
-    }
+    res.cookie("credentials", user, { httpOnly: true });
+    res.redirect(process.env.FRONTEND_PROFILE_REDIRECT_URL as string);
+    res.end();
   }
 );
 

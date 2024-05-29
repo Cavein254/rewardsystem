@@ -10,6 +10,7 @@ import path from "path";
 import { readFileSync } from "fs";
 import { gql } from "graphql-tag";
 import { resolvers } from "./resolvers";
+import authRouter from "./route/auth.route";
 
 const mydirname = process.cwd();
 const typeDefs = gql(
@@ -29,6 +30,8 @@ app.use(
     },
   })
 );
+
+app.use("/api/", authRouter);
 const httpServer = http.createServer(app);
 
 const server = new ApolloServer({

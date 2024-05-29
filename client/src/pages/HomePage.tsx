@@ -1,5 +1,4 @@
 import PostList from "@/components/post/PostList";
-import React from "react";
 
 const HomePage = () => {
   return (

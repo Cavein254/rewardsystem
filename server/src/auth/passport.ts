@@ -12,6 +12,7 @@ passport.serializeUser((user: any, done) => {
     name: user.name,
     image: user.image,
     email: user.email,
+    gender: profile._json.gender,
   });
 });
 
@@ -32,6 +33,8 @@ passport.use(
       callbackURL: process.env.GOOGLE_CALLBACK_URL as string,
     },
     async (accessToken, refreshToken, profile, done) => {
+      console.log("All stuff is here");
+      console.log(profile);
       const user = await prisma.user.upsert({
         where: {
           email: profile.emails![0].value,
