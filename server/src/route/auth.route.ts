@@ -7,11 +7,7 @@ const authRouter = express.Router();
 authRouter.get(
   "/auth/google",
   passport.authenticate("google", {
-    scope: [
-      "profile",
-      "email",
-      "https://www.googleapis.com/auth/user.gender.read",
-    ],
+    scope: ["profile", "email"],
   })
 );
 

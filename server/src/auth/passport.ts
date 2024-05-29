@@ -12,7 +12,6 @@ passport.serializeUser((user: any, done) => {
     name: user.name,
     image: user.image,
     email: user.email,
-    gender: profile._json.gender,
   });
 });
 

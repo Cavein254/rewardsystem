@@ -31,7 +31,7 @@ app.use(
   })
 );
 
-app.use("/api/", authRouter);
+app.use("/", authRouter);
 const httpServer = http.createServer(app);
 
 const server = new ApolloServer({
@@ -41,7 +41,7 @@ const server = new ApolloServer({
 });
 await server.start();
 app.use(
-  "/",
+  "/graphql",
   cors<cors.CorsRequest>(),
   express.json(),
   expressMiddleware(server, {

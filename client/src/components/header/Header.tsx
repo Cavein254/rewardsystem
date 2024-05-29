@@ -13,14 +13,15 @@ const Header = () => {
       </div>
       <div>
         <div>
-          {user !== null && (
+          {user !== null ? (
             <Button className="bg-slate-900 rounded-lg text-white hover:bg-slate-200 hover:text-black">
               <Link to="/create/new">Create Post</Link>
             </Button>
+          ) : (
+            <Button className="bg-slate-900 rounded-lg text-white hover:bg-slate-200 hover:text-black">
+              <Link to="http://localhost:4000/auth/google">Login</Link>
+            </Button>
           )}
-          <Button className="bg-slate-900 rounded-lg text-white hover:bg-slate-200 hover:text-black">
-            <Link to="http://localhost:4000/api/auth/google">Login</Link>
-          </Button>
         </div>
       </div>
     </div>
