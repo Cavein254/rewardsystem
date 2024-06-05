@@ -9,4 +9,5 @@ type User {
 type Query {
   hello: String
   getCurrentUser: User!
+  healthCheck:String
 }

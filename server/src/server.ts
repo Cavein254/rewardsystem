@@ -1,6 +1,5 @@
 import session from "express-session";
-import passport from "passport";
-import express from "express";
+import express, { Request } from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -9,12 +8,14 @@ import cors from "cors";
 import path from "path";
 import { readFileSync } from "fs";
 import { gql } from "graphql-tag";
-import { resolvers } from "./resolvers";
+import resolvers from "./resolvers";
 import authRouter from "./route/auth.route";
+import prisma from "./lib/prisma";
+import { GraphQLContext } from "./types";
 
 const mydirname = process.cwd();
 const typeDefs = gql(
-  readFileSync(path.resolve(mydirname, "./src/schema.graphql"), {
+  readFileSync(path.resolve(mydirname, "./src/schema/schema.graphql"), {
     encoding: "utf-8",
   })
 );
@@ -45,7 +46,9 @@ app.use(
   cors<cors.CorsRequest>(),
   express.json(),
   expressMiddleware(server, {
-    context: async ({ req }) => ({ token: req.headers.token }),
+    context: async (): Promise<GraphQLContext>=> {
+      return {prisma}
+    },
   })
 );
 
