@@ -1,3 +1,11 @@
+type Query {
+  hello: String
+  getCurrentUser: User!
+  getAllPosts:[Post]
+  getAllUsers:[User]
+  healthCheck:String
+}
+
 type User {
   id: ID!
   name: String
@@ -6,8 +14,22 @@ type User {
   gender: String
 }
 
-type Query {
-  hello: String
-  getCurrentUser: User!
-  healthCheck:String
+type Post {
+  id: ID!
+  title: String
+  body: String
+  published: Boolean
+  createdAt: String
+  updatedAt: String
+  comments: [Comment]
 }
+
+type Comment {
+  id: ID!
+  body: String
+  createdAt: String
+  updatedAt: String
+  userId: String
+  postId: String
+}
+
