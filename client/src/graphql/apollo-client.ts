@@ -9,7 +9,6 @@ if (process.env.NODE_ENV !== "production") {
 const VITE_GRAPHQL_URL: string = import.meta.env.VITE_GRAPHQL_URL as string;
 const httpLink = new HttpLink({
   uri: VITE_GRAPHQL_URL,
-  credentials: "include",
 });
 
 export const client = new ApolloClient({

@@ -32,6 +32,28 @@ app.use(
   })
 );
 
+// Define allowed origins
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:4000'];
+
+// Create CORS options
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true,
+// };
+const corsOptions = {
+  origin: "*",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
+app.use(cors(corsOptions))
+
 app.use("/", authRouter);
 const httpServer = http.createServer(app);
 
@@ -43,7 +65,9 @@ const server = new ApolloServer({
 await server.start();
 app.use(
   "/graphql",
-  cors<cors.CorsRequest>(),
+  cors<cors.CorsRequest>([
+    corsOptions
+  ]),
   express.json(),
   expressMiddleware(server, {
     context: async (): Promise<GraphQLContext>=> {

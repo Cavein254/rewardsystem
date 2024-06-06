@@ -1,20 +1,32 @@
-import React, { useState, useContext } from "react";
+import { useQuery } from "@apollo/client";
+import  { useState, createContext, useEffect, useMemo } from "react";
+import { GET_CURRENT_USER } from "./graphql/operations/query/user";
 
-export const AuthContext = React.createContext();
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(undefined);
 
-  const login = (userData) => {
-    setUser(userData);
-  };
+  const {data, error} = useQuery(GET_CURRENT_USER);
 
-  const logOut = () => {
-    setUser(null);
-  };
+  useEffect(() => {
+    if(data && data.getCurrentUser) {
+      setUser(data.getCurrentUser);
+    } else if (error) {
+      setUser(undefined)
+    }
+  }, [data,error])
+
+  const contextValue = useMemo(
+    () => ({
+      user,
+      setUser
+    }),
+    [user, error]
+  )
 
   return (
-    <AuthContext.Provider value={{ user, login, logOut }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );
