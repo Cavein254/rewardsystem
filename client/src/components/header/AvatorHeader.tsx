@@ -1,7 +1,6 @@
 import * as Avatar from '@radix-ui/react-avatar';
 import './styles.css';
 const AvatorHeader = ({img}:{img:string| undefined}) => {
-    console.log(img)
   return (
     <Avatar.Root className="AvatarRoot">
       <Avatar.Image

@@ -6,12 +6,11 @@ import DropdownHeader from "./DropdownHeader";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
   return (
     <div className="flex flex-row justify-between items-center w-full bg-slate-800 px-4 py-4">
       <div className="">
         <Link to="/">
-          <h1 className="text-3xl font-bold text-white">Reward Systems</h1>
+          <h1 className="text-3xl font-bold text-white">Reward System</h1>
         </Link>
       </div>
       <div>
