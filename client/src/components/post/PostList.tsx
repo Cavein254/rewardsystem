@@ -2,7 +2,7 @@ import PostItem from "./PostItem";
 
 const PostList = () => {
   return (
-    <div>
+    <div className="">
       <PostItem />
       <PostItem />
       <PostItem />

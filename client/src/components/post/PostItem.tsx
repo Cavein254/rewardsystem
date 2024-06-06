@@ -4,7 +4,7 @@ import { PiEyesFill } from "react-icons/pi";
 import { IoChatbubbles } from "react-icons/io5";
 const PostItem = () => {
   return (
-    <div className=" my-2 border-2 border-slate-700">
+    <div className=" my-2 border-2 border-slate-700 px-4 py-2">
       <div>
         <h1 className="font-bold text-3xl">Current Posts</h1>
         <h4 className="font-lg font-thin">
