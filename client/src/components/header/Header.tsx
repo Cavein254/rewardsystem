@@ -15,7 +15,7 @@ const Header = () => {
       </div>
       <div>
         <div>
-          {user !== null ? (
+          {user !== undefined ? (
             <>
             <DropdownHeader user={user}/>
             </>

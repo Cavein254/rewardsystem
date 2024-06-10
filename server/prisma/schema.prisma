@@ -27,7 +27,8 @@ model User {
 
 model Post {
   id            String    @id @default(cuid())
-  title String
+  title String @unique
+  slug String @unique
   body String
   published Boolean @default(false)
   userId String

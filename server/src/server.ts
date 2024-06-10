@@ -12,6 +12,7 @@ import resolvers from "./resolvers";
 import authRouter from "./route/auth.route";
 import prisma from "./lib/prisma";
 import { GraphQLContext } from "./types";
+import cookieParser from 'cookie-parser'
 
 const mydirname = process.cwd();
 const typeDefs = gql(
@@ -27,10 +28,12 @@ app.use(
     saveUninitialized: true,
     secret: "secret",
     cookie: {
-      secure: false,
+      secure: true,
     },
   })
 );
+
+app.use(cookieParser())
 
 // Define allowed origins
 const allowedOrigins = ['http://localhost:5173', 'http://localhost:4000'];
@@ -52,9 +55,8 @@ const corsOptions = {
   preflightContinue: false,
   optionsSuccessStatus: 204,
 };
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 
-app.use("/", authRouter);
 const httpServer = http.createServer(app);
 
 const server = new ApolloServer({
@@ -63,6 +65,8 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 await server.start();
+app.use("/", authRouter);
+
 app.use(
   "/graphql",
   cors<cors.CorsRequest>([
@@ -70,8 +74,11 @@ app.use(
   ]),
   express.json(),
   expressMiddleware(server, {
-    context: async (): Promise<GraphQLContext>=> {
-      return {prisma}
+    context: async ({req}:{req:Request}): Promise<GraphQLContext>=> {
+      const cookies = req.cookies;
+      console.log("printing all cookies")
+      console.log(JSON.stringify(cookies))
+      return {prisma,req}
     },
   })
 );
