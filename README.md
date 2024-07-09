@@ -5,8 +5,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="">
+    <img src="img/logo.png" alt="Logo" width="300" height="80">
   </a>
 
   <h3 align="center">Rewards System</h3>
@@ -54,7 +54,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+!["main"](./img/main.png)
 
 This projects shows how users can gain points through their actions as posting, commenting, liking or disliking among other. Users also gain previllages based on the number of points they have using Role-Based Access Control (RBAC) as being moderators.
 
