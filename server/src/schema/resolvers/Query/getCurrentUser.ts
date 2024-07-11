@@ -5,7 +5,7 @@ export const getCurrentUser: NonNullable<
   console.log("Finding the user");
   console.log("logging user id");
   const { prisma } = ctx;
-  const cookieCredentials = await ctx.req.cookies.credentials;
+  const cookieCredentials = await ctx.req;
   console.log(cookieCredentials);
   const userId = 1;
   const user = await prisma.user.findFirst({

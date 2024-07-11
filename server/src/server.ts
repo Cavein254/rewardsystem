@@ -12,7 +12,10 @@ import resolvers from "./resolvers";
 import authRouter from "./route/auth.route";
 import prisma from "./lib/prisma";
 import { GraphQLContext } from "./types";
+import expressSession from "express-session";
 import cookieParser from "cookie-parser";
+import { PrismaClient } from "@prisma/client";
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 
 const mydirname = process.cwd();
 const typeDefs = gql(
@@ -22,18 +25,24 @@ const typeDefs = gql(
 );
 
 const app = express();
-app.use(
-  session({
-    resave: false,
-    saveUninitialized: true,
-    secret: "secret",
-    cookie: {
-      secure: true,
-    },
-  })
-);
+
 app.use(cookieParser());
 
+app.use(
+  expressSession({
+    cookie: {
+      maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days
+    },
+    secret: "a santa at nasa",
+    resave: false,
+    saveUninitialized: false,
+    store: new PrismaSessionStore(new PrismaClient(), {
+      checkPeriod: 2 * 60 * 1000, //ms
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
+    }),
+  })
+);
 // Define allowed origins
 const allowedOrigins = ["http://localhost:5173", "http://localhost:4000"];
 
