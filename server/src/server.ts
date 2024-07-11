@@ -1,5 +1,5 @@
 import session from "express-session";
-import express, { Request } from "express";
+import express from "express";
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@apollo/server/express4";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -12,7 +12,7 @@ import resolvers from "./resolvers";
 import authRouter from "./route/auth.route";
 import prisma from "./lib/prisma";
 import { GraphQLContext } from "./types";
-import cookieParser from 'cookie-parser'
+import cookieParser from "cookie-parser";
 
 const mydirname = process.cwd();
 const typeDefs = gql(
@@ -32,11 +32,10 @@ app.use(
     },
   })
 );
-
-app.use(cookieParser())
+app.use(cookieParser());
 
 // Define allowed origins
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:4000'];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:4000"];
 
 // Create CORS options
 // const corsOptions = {
@@ -59,29 +58,29 @@ const corsOptions = {
 
 const httpServer = http.createServer(app);
 
-const server = new ApolloServer({
+const server = new ApolloServer<GraphQLContext>({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 await server.start();
-app.use("/", authRouter);
 
 app.use(
   "/graphql",
-  cors<cors.CorsRequest>([
-    corsOptions
-  ]),
+  cors<cors.CorsRequest>({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
   express.json(),
   expressMiddleware(server, {
-    context: async ({req}:{req:Request}): Promise<GraphQLContext>=> {
-      const cookies = req.cookies;
-      console.log("printing all cookies")
-      console.log(JSON.stringify(cookies))
-      return {prisma,req}
-    },
+    context: async ({ req }): Promise<GraphQLContext> => ({
+      prisma,
+      req,
+    }),
   })
 );
+
+app.use("/", authRouter);
 
 await new Promise<void>((resolve) =>
   httpServer.listen({ port: 4000 }, resolve)
