@@ -69,40 +69,42 @@ const corsOptions = {
 // app.use(cors(corsOptions))
 
 const httpServer = http.createServer(app);
+async function startApolloServer() {
+  const server = new ApolloServer<GraphQLContext>({
+    typeDefs,
+    resolvers,
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      process.env.NODE_ENV === "production"
+        ? ApolloServerPluginLandingPageProductionDefault({
+            graphRef: "my-graph-id@my-graph-variant",
+            footer: false,
+            includeCookies: true,
+          })
+        : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
+    ],
+  });
+  await server.start();
 
-const server = new ApolloServer<GraphQLContext>({
-  typeDefs,
-  resolvers,
-  plugins: [
-    ApolloServerPluginDrainHttpServer({ httpServer }),
-    process.env.NODE_ENV === "production"
-      ? ApolloServerPluginLandingPageProductionDefault({
-          graphRef: "my-graph-id@my-graph-variant",
-          footer: false,
-          includeCookies: true,
-        })
-      : ApolloServerPluginLandingPageLocalDefault({ footer: false }),
-  ],
-});
-await server.start();
-
-app.use(
-  "/graphql",
-  cors<cors.CorsRequest>({
-    origin: allowedOrigins,
-    credentials: true,
-  }),
-  express.json(),
-  expressMiddleware(server, {
-    context: async ({ req }): Promise<GraphQLContext> => ({
-      prisma,
-      req,
+  app.use(
+    "/graphql",
+    cors<cors.CorsRequest>({
+      origin: allowedOrigins,
+      credentials: true,
     }),
-  })
-);
-app.use("/", authRouter);
+    express.json(),
+    expressMiddleware(server, {
+      context: async ({ req }): Promise<GraphQLContext> => ({
+        prisma,
+        req,
+      }),
+    })
+  );
+  app.use("/", authRouter);
 
-await new Promise<void>((resolve) =>
-  httpServer.listen({ port: 4000 }, resolve)
-);
-console.log(`🚀 Server ready at http://localhost:4000/`);
+  await new Promise<void>((resolve) =>
+    httpServer.listen({ port: 4000 }, resolve)
+  );
+  console.log(`🚀 Server ready at http://localhost:4000/`);
+}
+startApolloServer().catch(console.error);
