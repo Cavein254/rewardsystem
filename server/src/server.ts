@@ -18,7 +18,7 @@ import { GraphQLContext } from "./types";
 import expressSession from "express-session";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
-const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 
 const mydirname = process.cwd();
 const typeDefs = gql(
