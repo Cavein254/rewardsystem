@@ -17,7 +17,7 @@ services:
       - backend
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin/phpmyadmin:5.2.1
     container_name: phpmyadmin
     environment:
       PMA_HOST: mariadb
