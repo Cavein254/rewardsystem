@@ -3,7 +3,7 @@ import Hero from "./Hero";
 
 const Landing = () => {
   return (
-    <div className="h-[100vh]">
+    <div className="flex flex-col min-h-[100vh]">
       <Header />
       <Hero />
     </div>

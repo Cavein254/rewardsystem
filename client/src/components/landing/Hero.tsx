@@ -1,7 +1,7 @@
 const Hero = () => {
   return (
-    <div className="flex min-h-full flex-col">
-      <div className="flex w-full flex-col md:flex-row flex-grow">
+    <div className="flex flex-col h-[100vh]">
+      <div className="flex w-full flex-col md:flex-row h-[80%]">
         <div className="md:w-[50%] border-2 border-red-600 justify-center flex">
           <div>
             <h1 className="text-4xl font-bold uppercase">Reward System</h1>
@@ -14,7 +14,7 @@ const Hero = () => {
         <div className="md:w-[50%] border-2 border-red-600"></div>
       </div>
       {/* footer */}
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between h-[20%]">
         <div className="border-2 border-green-600 w-[33%]">
           <div>
             <h4 className="font-bold">
