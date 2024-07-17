@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        main: "url('./src/assets/backdrop.jpg')",
+        main: "url('./src/assets/dominos.jpg')",
       },
       colors: {
         border: "hsl(var(--border))",
