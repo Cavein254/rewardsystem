@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div>
+    <div className="">
       <div className="flex justify-between px-4 py-6">
         <div>
           <h1>Reward System</h1>

@@ -1,9 +1,11 @@
 import Header from "./Header";
+import Hero from "./Hero";
 
 const Landing = () => {
   return (
-    <div>
+    <div className="h-[100vh]">
       <Header />
+      <Hero />
     </div>
   );
 };
