@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <div>
@@ -8,10 +10,16 @@ const Header = () => {
         <div className="md:hidden">
           <h1>x</h1>
         </div>
-        <div className="md:flex justify-between gap-2 hidden">
-          <div>Features</div>
-          <div>About Us</div>
-          <div>Contact Us</div>
+        <div className="md:flex justify-between gap-2 hidden font-bold ">
+          <Link to="" className="hover:underline">
+            Features
+          </Link>
+          <Link to="" className="hover:underline">
+            About Us
+          </Link>
+          <Link to="" className="hover:underline">
+            Contact Us
+          </Link>
         </div>
       </div>
     </div>
