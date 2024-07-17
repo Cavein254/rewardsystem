@@ -20,6 +20,7 @@ export default {
     extend: {
       backgroundImage: {
         main: "url('./src/assets/dominos.jpg')",
+        minor: "url('./src/assets/writing.jpg')",
       },
       colors: {
         border: "hsl(var(--border))",
