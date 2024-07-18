@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import HeroCard from "./HeroCard";
 import { HeroData } from "./HeroData";
 
@@ -24,9 +25,11 @@ const Hero = () => {
               /Get Higher Rewards. Access More Functionality/
             </h4>
             <div className="py-4">
-              <button className="text-white text-2xl uppercase rounded-xl px-8 py-4 hover:shadow-xl bg-slate-950">
-                start
-              </button>
+              <Link to="/dashboard">
+                <button className="text-white text-2xl uppercase rounded-xl px-8 py-4 hover:shadow-xl bg-slate-950 hover:cursor-pointer">
+                  start
+                </button>
+              </Link>
             </div>
           </div>
         </div>
