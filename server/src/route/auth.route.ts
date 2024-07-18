@@ -24,7 +24,7 @@ authRouter.get(
         email: email,
       },
     });
-    res.cookie("credentials", JSON.stringify(user), { httpOnly: false });
+    res.cookie("credentials", user, { httpOnly: true });
     res.redirect(process.env.FRONTEND_PROFILE_REDIRECT_URL as string);
     res.end();
   }
