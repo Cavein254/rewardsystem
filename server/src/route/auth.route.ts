@@ -48,11 +48,13 @@ authRouter.get("/api/user", async (req, res) => {
     }
   }
 });
+
 authRouter.get("/api/status", async (req, res) => {
   return res.json({
     status: "ok",
   });
 });
+
 authRouter.get("/logout", (req, res) => {
   res.clearCookie("credentials");
   req.session?.destroy((err) => {

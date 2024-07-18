@@ -12,7 +12,7 @@ import path from "path";
 import { readFileSync } from "fs";
 import { gql } from "graphql-tag";
 import resolvers from "./resolvers";
-import authRouter from "./route/auth.route";
+import authRouter, { currentuser } from "./route/auth.route";
 import prisma from "./lib/prisma";
 import { GraphQLContext } from "./types";
 import expressSession from "express-session";
@@ -73,6 +73,7 @@ async function startApolloServer() {
   const server = new ApolloServer<GraphQLContext>({
     typeDefs,
     resolvers,
+    // required for passport req.user access
     plugins: [
       ApolloServerPluginDrainHttpServer({ httpServer }),
       process.env.NODE_ENV === "production"
@@ -94,12 +95,15 @@ async function startApolloServer() {
     }),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req }): Promise<GraphQLContext> => ({
+      context: async ({ req, res }): Promise<GraphQLContext> => ({
         prisma,
         req,
       }),
     })
   );
+
+  app.use(cors(corsOptions));
+
   app.use("/", authRouter);
 
   await new Promise<void>((resolve) =>
