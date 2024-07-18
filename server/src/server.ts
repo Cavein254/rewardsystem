@@ -100,7 +100,6 @@ app.use(
     }),
   })
 );
-
 app.use("/", authRouter);
 
 await new Promise<void>((resolve) =>
