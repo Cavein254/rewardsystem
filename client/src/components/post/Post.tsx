@@ -48,7 +48,10 @@ const Post = () => {
         <Button className="border-2 border-slate-700 hover:border-none hover:bg-red-400 hover:text-white">
           Clear
         </Button>
-        <Button className="border-2 border-slate-700 hover:border-none hover:bg-green-400 hover:text-white">
+        <Button
+          className="border-2 border-slate-700 hover:border-none hover:bg-green-400 hover:text-white"
+          onClick={() => createPost()}
+        >
           Save
         </Button>
       </div>

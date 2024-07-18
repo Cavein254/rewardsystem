@@ -36,7 +36,7 @@ model Post {
   id            String    @id @default(cuid())
   title String @unique
   slug String @unique
-  body String
+  body String @db.Text
   published Boolean @default(false)
   userId String
   user User @relation(fields:[userId], references: [id])
