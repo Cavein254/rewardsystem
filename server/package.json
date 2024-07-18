@@ -19,6 +19,8 @@
     "@eddeee888/gcg-typescript-resolver-files": "^0.9.2",
     "@prisma/client": "^5.14.0",
     "@quixo3/prisma-session-store": "^3.1.13",
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",

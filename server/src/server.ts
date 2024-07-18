@@ -12,7 +12,7 @@ import path from "path";
 import { readFileSync } from "fs";
 import { gql } from "graphql-tag";
 import resolvers from "./resolvers";
-import authRouter, { currentuser } from "./route/auth.route";
+import authRouter from "./route/auth.route";
 import prisma from "./lib/prisma";
 import { GraphQLContext } from "./types";
 import expressSession from "express-session";
@@ -35,6 +35,9 @@ app.use(
   expressSession({
     cookie: {
       maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days
+      httpOnly: false,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
     },
     secret: "a santa at nasa",
     resave: false,
@@ -46,27 +49,14 @@ app.use(
     }),
   })
 );
-// Define allowed origins
-const allowedOrigins = ["http://localhost:5173", "http://localhost:4000"];
 
-// Create CORS options
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   credentials: true,
-// };
+// Define allowed origins
 const corsOptions = {
-  origin: "*",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
+  origin: ["http://localhost:5173", "http://localhost:4000"],
+  credentials: true,
 };
-// app.use(cors(corsOptions))
+
+app.use(cors(corsOptions));
 
 const httpServer = http.createServer(app);
 async function startApolloServer() {
@@ -89,20 +79,15 @@ async function startApolloServer() {
 
   app.use(
     "/graphql",
-    cors<cors.CorsRequest>({
-      origin: allowedOrigins,
-      credentials: true,
-    }),
+    cors<cors.CorsRequest>(corsOptions),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req, res }): Promise<GraphQLContext> => ({
+      context: async ({ req }): Promise<GraphQLContext> => ({
         prisma,
         req,
       }),
     })
   );
-
-  app.use(cors(corsOptions));
 
   app.use("/", authRouter);
 

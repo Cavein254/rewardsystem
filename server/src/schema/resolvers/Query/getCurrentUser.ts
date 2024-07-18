@@ -3,18 +3,10 @@ export const getCurrentUser: NonNullable<
   QueryResolvers["getCurrentUser"]
 > = async (_parent, _arg, ctx) => {
   const { prisma } = ctx;
-  const userId = ctx?.currentUser?.id;
-  console.log("Getting the current user");
-  console.log(ctx?.currentUser);
+  const userId = "clygzqm450000f79uicq5aze8";
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
-    },
-    include: {
-      profile: {
-        take: 1,
-        orderBy: { createdAt: "asc" },
-      },
     },
   });
   return user;
