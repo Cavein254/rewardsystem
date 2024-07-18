@@ -1,4 +1,9 @@
-const HeroCard = ({ title, description, icon }) => {
+interface HeroCardProps {
+  title: string;
+  description: string;
+  icon: JSX.Element;
+}
+const HeroCard = ({ title, description, icon }: HeroCardProps) => {
   return (
     <div className="md:w-[33%] border-2 border-gray-400 rounded-xl p-2">
       <div>
