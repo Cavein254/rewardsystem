@@ -30,8 +30,13 @@ const Hero = () => {
         </div>
       </div>
       {/* footer */}
-      <div className="flex w-full justify-between h-[20%] flex-col md:flex-row bg-white pt-4">
-        {allData}
+      <div className="h-20% bg-white pt-4">
+        <div>
+          <h4 className="text-4xl font-bold uppercase px-4">Features</h4>
+        </div>
+        <div className="flex w-full justify-between gap-2 flex-col md:flex-row px-4">
+          {allData}
+        </div>
       </div>
     </div>
   );
