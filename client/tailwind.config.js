@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        main: "url('./src/assets/dominos.jpg')",
+        main: "url('./img/dominos.jpg')",
         minor: "url('./src/assets/writing.jpg')",
       },
       colors: {
