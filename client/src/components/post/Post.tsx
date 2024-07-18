@@ -1,7 +1,29 @@
+import { useState } from "react";
 import EditorComponent from "../EditorComponent";
 import { Button } from "../ui/button";
+import { useMutation } from "@apollo/client";
+import { CREATE_POST } from "@/graphql/operations/mutation/user";
 
 const Post = () => {
+  const [post, setPost] = useState("");
+  const [title, setTitle] = useState("");
+
+  const [createPost] = useMutation(CREATE_POST, {
+    variables: {
+      input: {
+        title,
+        body: post,
+        author,
+        slug,
+      },
+    },
+    onCompleted: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   return (
     <div>
       <div className="flex justify-between py-4">
@@ -14,9 +36,11 @@ const Post = () => {
         <input
           placeholder="Enter Post Title"
           className="px-4 py-2 text-2xl font-bold border-2 border-gray-400 w-full my-4"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
         />
       </div>
-      <EditorComponent />
+      <EditorComponent post={post} setPost={setPost} />
       <div className="flex justify-between items-center pt-4 ">
         <Button className="border-2 border-slate-700 hover:border-none hover:bg-red-400 hover:text-white">
           Clear

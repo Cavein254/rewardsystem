@@ -1,9 +1,9 @@
 type Query {
   hello: String
   getCurrentUser: User!
-  getAllPosts:[Post]
-  getAllUsers:[User]
-  healthCheck:String
+  getAllPosts: [Post]
+  getAllUsers: [User]
+  healthCheck: String
 }
 
 type Mutation {
@@ -14,6 +14,7 @@ input CreatePostInput {
   title: String!
   body: String!
   slug: String!
+  author: String!
 }
 
 type SuccessResults {
@@ -48,4 +49,3 @@ type Comment {
   userId: String
   postId: String
 }
-

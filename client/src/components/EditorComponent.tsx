@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const EditorComponent = () => {
-  const [value, setValue] = useState("");
+interface EditorComponentProps {
+  post: string;
+  setPost: () => void;
+}
+const EditorComponent = ({ post, setPost }: EditorComponentProps) => {
   return (
     <div>
-      <ReactQuill theme="snow" value={value} onChange={setValue} />
+      <ReactQuill theme="snow" value={post} onChange={setPost} />
     </div>
   );
 };
