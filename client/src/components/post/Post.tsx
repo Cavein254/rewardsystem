@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "@/graphql/operations/mutation/user";
 import { AuthContext } from "@/Auth";
 import { createSlug } from "@/lib/utils";
+import { redirect } from "react-router-dom";
 
 const Post = () => {
   const [post, setPost] = useState("");
@@ -22,11 +23,15 @@ const Post = () => {
     },
     onCompleted: (data) => {
       console.log(data);
+      return redirect("/dashboard");
     },
     onError: (error) => {
       console.log(error);
     },
   });
+  const handleCreatePost = () => {
+    createPost();
+  };
   const handleClear = () => {
     setTitle("");
     setPost("");
@@ -57,7 +62,7 @@ const Post = () => {
         </Button>
         <Button
           className="border-2 border-slate-700 hover:border-none hover:bg-green-400 hover:text-white"
-          onClick={() => createPost()}
+          onClick={() => handleCreatePost()}
         >
           Save
         </Button>
