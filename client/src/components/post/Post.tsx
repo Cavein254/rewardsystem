@@ -27,6 +27,10 @@ const Post = () => {
       console.log(error);
     },
   });
+  const handleClear = () => {
+    setTitle("");
+    setPost("");
+  };
   return (
     <div>
       <div className="flex justify-between py-4">
@@ -45,7 +49,10 @@ const Post = () => {
       </div>
       <EditorComponent post={post} setPost={setPost} />
       <div className="flex justify-between items-center pt-4 ">
-        <Button className="border-2 border-slate-700 hover:border-none hover:bg-red-400 hover:text-white">
+        <Button
+          className="border-2 border-slate-700 hover:border-none hover:bg-red-400 hover:text-white"
+          onClick={() => handleClear()}
+        >
           Clear
         </Button>
         <Button
