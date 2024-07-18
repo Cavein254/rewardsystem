@@ -20,7 +20,9 @@ const Hero = () => {
             <h1 className="text-7xl font-bold uppercase text-center">
               Reward System
             </h1>
-            <h4 className="text-2xl">/We Craft Custom Homes/</h4>
+            <h4 className="text-2xl">
+              /Get Higher Rewards. Access More Functionality/
+            </h4>
             <div className="py-4">
               <button className="text-white text-2xl uppercase rounded-xl px-8 py-4 hover:shadow-xl bg-slate-950">
                 start
