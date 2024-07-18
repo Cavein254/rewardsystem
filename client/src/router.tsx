@@ -4,6 +4,7 @@ import RootLayout from "./RootLayout";
 import HomePage from "./pages/HomePage";
 import LandingPage from "./pages/LandingPage";
 import About from "./components/landing/About";
+import ContactUs from "./components/landing/Feature";
 
 export const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ export const router = createBrowserRouter([
   {
     path: "/about",
     element: <About />,
+  },
+  {
+    path: "/contactus",
+    element: <ContactUs />,
   },
   {
     element: <RootLayout />,

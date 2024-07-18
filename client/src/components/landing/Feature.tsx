@@ -1,9 +1,13 @@
 import React from "react";
+import Header from "../header/Header";
 
 const ContactUs = () => {
   return (
     <div>
-      <h1 className="text-3xl font-bold">Contact Us Page</h1>
+      <Header />
+      <div>
+        <h1 className="text-3xl font-bold">Contact Us Page</h1>
+      </div>
     </div>
   );
 };
