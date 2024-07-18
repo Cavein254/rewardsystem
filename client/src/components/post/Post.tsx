@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import EditorComponent from "../EditorComponent";
 import { Button } from "../ui/button";
 import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "@/graphql/operations/mutation/user";
+import { AuthContext } from "@/Auth";
+import { createSlug } from "@/lib/utils";
 
 const Post = () => {
   const [post, setPost] = useState("");
   const [title, setTitle] = useState("");
+  const { user } = useContext(AuthContext);
 
   const [createPost] = useMutation(CREATE_POST, {
     variables: {
       input: {
         title,
         body: post,
-        author,
-        slug,
+        author: user?.id,
+        slug: createSlug(title),
       },
     },
     onCompleted: (data) => {
