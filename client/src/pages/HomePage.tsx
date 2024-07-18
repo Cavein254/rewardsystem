@@ -1,5 +1,5 @@
 import { AuthContext } from "@/Auth";
-import PostList from "@/components/post/PostList";
+import PostItem from "@/components/post/PostItem";
 import { GET_ALL_POSTS } from "@/graphql/operations/query/posts";
 import { useQuery } from "@apollo/client";
 import { useContext } from "react";
@@ -12,7 +12,7 @@ const HomePage = () => {
   }
 
   const allPosts = data?.getAllPosts.map((post) => (
-    <PostList key={post.id} post={post} />
+    <PostItem key={post.id} post={post} />
   ));
   return (
     <div>
