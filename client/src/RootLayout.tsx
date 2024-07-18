@@ -8,10 +8,10 @@ const RootLayout = () => {
       <nav>
         <Header />
       </nav>
-      <main className="container">
+      <main className="container min-h-[100vh]">
         <Outlet />
       </main>
-      <footer className="absolute bottom-0 w-full">
+      <footer className="w-full">
         <Footer />
       </footer>
     </div>

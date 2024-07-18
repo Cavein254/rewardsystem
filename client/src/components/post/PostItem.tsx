@@ -11,7 +11,7 @@ const PostItem = ({ post }) => {
         <h4 className="font-lg font-thin">
           <ReactQuill
             theme={"bubble"}
-            value={post.body.slice(0, 100)}
+            value={post.body.slice(0, 200)}
             readOnly={true}
           />
         </h4>
