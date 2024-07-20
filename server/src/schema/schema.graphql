@@ -2,7 +2,7 @@ type Query {
   hello: String
   getCurrentUser: User!
   getAllPosts: [Post]
-  getPostDetails: PostDetails
+  getPostDetails(slug: String!): PostDetails
   getAllUsers: [User]
   healthCheck: String
 }

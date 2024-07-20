@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import LandingPage from "./pages/LandingPage";
 import About from "./components/landing/About";
 import ContactUs from "./components/landing/Feature";
+import PostDetails from "./components/post/PostDetails";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "/create/new",
         element: <CreatePost />,
+      },
+      {
+        path: "/post/:slug",
+        element: <PostDetails />,
       },
     ],
   },

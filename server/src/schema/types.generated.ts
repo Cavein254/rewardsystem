@@ -78,6 +78,11 @@ export type Query = {
   hello?: Maybe<Scalars['String']['output']>;
 };
 
+
+export type QuerygetPostDetailsArgs = {
+  slug: Scalars['String']['input'];
+};
+
 export type SuccessResults = {
   __typename?: 'SuccessResults';
   message: Scalars['String']['output'];
@@ -235,7 +240,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getAllUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   getCurrentUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  getPostDetails?: Resolver<Maybe<ResolversTypes['PostDetails']>, ParentType, ContextType>;
+  getPostDetails?: Resolver<Maybe<ResolversTypes['PostDetails']>, ParentType, ContextType, RequireFields<QuerygetPostDetailsArgs, 'slug'>>;
   healthCheck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
