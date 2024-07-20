@@ -13,6 +13,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\nmutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      message\n      success\n    }\n  }": types.CreatePostDocument,
+    "\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        body\n        published\n        createdAt\n        updatedAt\n    }\n}\n": types.GetAllPostsDocument,
+    "\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n": types.GetPostDetailsDocument,
     "\nquery GetCurrentUser {\n    getCurrentUser {\n    id\n    name\n    email\n    image\n    gender\n  }\n}\n": types.GetCurrentUserDocument,
 };
 
@@ -30,6 +33,18 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      message\n      success\n    }\n  }"): (typeof documents)["\nmutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      message\n      success\n    }\n  }"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        body\n        published\n        createdAt\n        updatedAt\n    }\n}\n"): (typeof documents)["\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        body\n        published\n        createdAt\n        updatedAt\n    }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n"): (typeof documents)["\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

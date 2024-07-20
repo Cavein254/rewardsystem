@@ -1,5 +1,15 @@
 import type { QueryResolvers } from "./../../types.generated";
-export const getPostDetails: NonNullable<QueryResolvers['getPostDetails']> = async (_parent, arg, _ctx) => {
+export const getPostDetails: NonNullable<
+  QueryResolvers["getPostDetails"]
+> = async (_parent, arg, ctx) => {
   console.log("post details");
-  console.log(arg);
+  const { slug } = arg;
+  const { prisma } = ctx;
+
+  const postDetails = await prisma.post.findUnique({
+    where: {
+      slug,
+    },
+  });
+  return postDetails;
 };
