@@ -23,7 +23,7 @@ export type Comment = {
   id: Scalars['ID']['output'];
   postId?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['String']['output']>;
-  userId?: Maybe<Scalars['String']['output']>;
+  user?: Maybe<User>;
 };
 
 export type CreatePostInput = {
@@ -55,11 +55,25 @@ export type Post = {
   updatedAt?: Maybe<Scalars['String']['output']>;
 };
 
+export type PostDetails = {
+  __typename?: 'PostDetails';
+  body?: Maybe<Scalars['String']['output']>;
+  comments?: Maybe<Array<Maybe<Comment>>>;
+  createdAt?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  published?: Maybe<Scalars['Boolean']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['String']['output']>;
+  user?: Maybe<User>;
+};
+
 export type Query = {
   __typename?: 'Query';
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getCurrentUser: User;
+  getPostDetails?: Maybe<PostDetails>;
   healthCheck?: Maybe<Scalars['String']['output']>;
   hello?: Maybe<Scalars['String']['output']>;
 };
@@ -157,6 +171,7 @@ export type ResolversTypes = {
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  PostDetails: ResolverTypeWrapper<PostDetails>;
   Query: ResolverTypeWrapper<{}>;
   SuccessResults: ResolverTypeWrapper<SuccessResults>;
   User: ResolverTypeWrapper<User>;
@@ -171,6 +186,7 @@ export type ResolversParentTypes = {
   Mutation: {};
   Post: Post;
   Boolean: Scalars['Boolean']['output'];
+  PostDetails: PostDetails;
   Query: {};
   SuccessResults: SuccessResults;
   User: User;
@@ -182,7 +198,7 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   postId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -202,10 +218,24 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PostDetailsResolvers<ContextType = any, ParentType extends ResolversParentTypes['PostDetails'] = ResolversParentTypes['PostDetails']> = {
+  body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
+  createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  published?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getAllUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   getCurrentUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  getPostDetails?: Resolver<Maybe<ResolversTypes['PostDetails']>, ParentType, ContextType>;
   healthCheck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
@@ -229,6 +259,7 @@ export type Resolvers<ContextType = any> = {
   Comment?: CommentResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
+  PostDetails?: PostDetailsResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   SuccessResults?: SuccessResultsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

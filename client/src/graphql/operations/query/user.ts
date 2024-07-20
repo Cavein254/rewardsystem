@@ -9,4 +9,35 @@ query GetCurrentUser {
     gender
   }
 }
-`)
+`);
+
+export const GET_POST_DETAILS = gql(`
+query GetPostDetails($postId:ID!) {
+  getPostDetails(id: $postId) {
+    id
+    title
+    slug
+    body
+    published
+    createdAt
+    updatedAt
+    comments {
+      id
+      body
+      createdAt
+      updatedAt
+      postId
+      user {
+        name
+      }
+    }
+    user {
+      id
+      name
+      email
+      image
+    }
+    
+  }
+}
+`);

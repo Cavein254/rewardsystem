@@ -24,15 +24,21 @@ const DropdownHeader = ({
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
-          <DropdownMenu.Item className="DropdownMenuItem">
-            <Link to="/create/new">Dashboard</Link>
-          </DropdownMenu.Item>
-          <DropdownMenu.Item className="DropdownMenuItem">
-            <Link to="/create/new">Create a Post</Link>
-          </DropdownMenu.Item>
-          <DropdownMenu.Item className="DropdownMenuItem">
-            <Link to="/create/new">View Profile</Link>
-          </DropdownMenu.Item>
+          <Link to="/dashboard">
+            <DropdownMenu.Item className="DropdownMenuItem">
+              Dashboard
+            </DropdownMenu.Item>
+          </Link>
+          <Link to="/create/new">
+            <DropdownMenu.Item className="DropdownMenuItem">
+              Create a Post
+            </DropdownMenu.Item>
+          </Link>
+          <Link to="/profile">
+            <DropdownMenu.Item className="DropdownMenuItem">
+              View Profile
+            </DropdownMenu.Item>
+          </Link>
 
           <DropdownMenu.Separator className="DropdownMenuSeparator" />
 
