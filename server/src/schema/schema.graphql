@@ -12,6 +12,11 @@ type Query {
 type Mutation {
   createPost(input: CreatePostInput!): SuccessResults
   createComment(input: CreateCommentInput!): SuccessResults
+  deleteComment(input: ItemId!): SuccessResults
+}
+
+input ItemId {
+  id: String!
 }
 
 input CreateCommentInput {
@@ -29,7 +34,7 @@ input CreatePostInput {
 
 type SuccessResults {
   success: Boolean!
-  message: String!
+  message: String
 }
 
 type User {

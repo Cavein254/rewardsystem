@@ -20,6 +20,7 @@ import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import * as dotenv from "dotenv";
+import passport from "passport";
 
 dotenv.config().parsed;
 
@@ -50,6 +51,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 const httpServer = http.createServer(app);
 async function startApolloServer() {
   const server = new ApolloServer<GraphQLContext>({
@@ -70,24 +74,22 @@ async function startApolloServer() {
   await server.start();
 
   // Define allowed origins
-  const corsOptions = {
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:4000",
-      "http://localhost:4000/graphql",
-    ],
-    credentials: true,
-  };
 
   app.use(
     "/graphql",
-    cors<cors.CorsRequest>(corsOptions),
+    cors<cors.CorsRequest>({
+      origin: [
+        "http://localhost:5173",
+        "http://localhost:4000",
+        "http://localhost:4000/graphql",
+      ],
+      credentials: true,
+    }),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req }): Promise<GraphQLContext> => ({
-        prisma,
-        req,
-      }),
+      context: async ({ req }): Promise<GraphQLContext> => {
+        return { prisma, req };
+      },
     })
   );
 

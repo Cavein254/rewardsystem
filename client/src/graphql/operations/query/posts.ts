@@ -1,3 +1,4 @@
+import { QueryResult } from "@apollo/client";
 import gql from "graphql-tag";
 
 export const GET_ALL_POSTS = gql(`
@@ -45,3 +46,7 @@ query GetPostDetails($slug:String!) {
   }
 }
 `);
+
+export type PostDetailsRefetch = QueryResult<
+  typeof GET_POST_DETAILS
+>["refetch"];

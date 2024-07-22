@@ -6,6 +6,8 @@ import DropdownHeader from "./DropdownHeader";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  console.log("All of the suer");
+  console.log(user);
   return (
     <div className="flex flex-row justify-between items-center w-full bg-slate-800 px-4 py-4">
       <div className="">

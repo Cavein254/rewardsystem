@@ -7,7 +7,10 @@ import Comment from "../comment/Comment";
 import CreateComment from "../comment/CreateComment";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
-import { CREATE_COMMENT } from "@/graphql/operations/mutation/comment";
+import {
+  CREATE_COMMENT,
+  DELETE_COMMENT,
+} from "@/graphql/operations/mutation/comment";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/Auth";
 import { GetPostCommentsQuery } from "@/__generated__/graphql";
@@ -26,9 +29,6 @@ const PostDetails = () => {
   const postId = data?.getPostDetails?.id;
   const postComments = data?.getPostDetails?.comments;
 
-  const commentList = postComments?.map((comment) => (
-    <Comment key={comment.id} comment={comment} />
-  ));
   const [createComment] = useMutation(CREATE_COMMENT, {
     variables: {
       input: {
@@ -45,6 +45,9 @@ const PostDetails = () => {
       console.log(error);
     },
   });
+  const commentList = postComments?.map((comment) => (
+    <Comment key={comment.id} comment={comment} refetch={refetch} />
+  ));
   const post = data?.getPostDetails;
   const navigate = useNavigate();
   const onEnterPress = () => {

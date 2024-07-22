@@ -8,3 +8,12 @@ mutation CreateComment($input: CreateCommentInput!) {
   }
 }
 `);
+
+export const DELETE_COMMENT = gql(`
+mutation DeleteComment($input: ItemId!) {
+  deleteComment(input: $input) {
+    message
+    success
+  }
+}
+`);

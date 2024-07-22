@@ -39,10 +39,15 @@ export type CreatePostInput = {
   title: Scalars['String']['input'];
 };
 
+export type ItemId = {
+  id: Scalars['String']['input'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createComment?: Maybe<SuccessResults>;
   createPost?: Maybe<SuccessResults>;
+  deleteComment?: Maybe<SuccessResults>;
 };
 
 
@@ -53,6 +58,11 @@ export type MutationcreateCommentArgs = {
 
 export type MutationcreatePostArgs = {
   input: CreatePostInput;
+};
+
+
+export type MutationdeleteCommentArgs = {
+  input: ItemId;
 };
 
 export type Post = {
@@ -104,7 +114,7 @@ export type QuerygetPostDetailsArgs = {
 
 export type SuccessResults = {
   __typename?: 'SuccessResults';
-  message: Scalars['String']['output'];
+  message?: Maybe<Scalars['String']['output']>;
   success: Scalars['Boolean']['output'];
 };
 
@@ -193,6 +203,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
+  ItemId: ItemId;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
@@ -209,6 +220,7 @@ export type ResolversParentTypes = {
   ID: Scalars['ID']['output'];
   CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
+  ItemId: ItemId;
   Mutation: {};
   Post: Post;
   Boolean: Scalars['Boolean']['output'];
@@ -231,6 +243,7 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createComment?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreateCommentArgs, 'input'>>;
   createPost?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreatePostArgs, 'input'>>;
+  deleteComment?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationdeleteCommentArgs, 'input'>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
@@ -270,7 +283,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type SuccessResultsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SuccessResults'] = ResolversParentTypes['SuccessResults']> = {
-  message?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

@@ -16,6 +16,10 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<GetCurrentUserQuery | undefined>(undefined);
 
   const { data, error } = useQuery(GET_CURRENT_USER);
+  console.log("usequery user");
+  console.log(data);
+  console.log("usequery error");
+  console.log(error);
 
   useEffect(() => {
     if (data && data.getCurrentUser) {

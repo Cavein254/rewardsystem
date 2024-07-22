@@ -15,13 +15,15 @@ passport.serializeUser((user: any, done) => {
   });
 });
 
-passport.deserializeUser(async (id: string, done) => {
-  const user = await prisma.user.findUnique({
+passport.deserializeUser(async (user: any, done) => {
+  const { id } = user;
+  const dbUser = await prisma.user.findUnique({
     where: {
       id,
     },
   });
-  done(null, user);
+
+  done(null, dbUser);
 });
 
 passport.use(
