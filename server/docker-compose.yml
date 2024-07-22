@@ -9,8 +9,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: reward
-      MYSQL_USER: cave
-      MYSQL_PASSWORD: cave
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:

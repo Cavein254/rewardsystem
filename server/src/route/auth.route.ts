@@ -19,13 +19,15 @@ authRouter.get(
     if (!email) {
       return res.redirect("/login");
     }
-    const user = await prisma.user.findFirst({
+    console.log("on google callback")
+    const credentials = await prisma.user.findFirst({
       where: {
         email: email,
       },
     });
-    res.cookie("credentials", user, { httpOnly: true });
-    res.redirect(process.env.FRONTEND_PROFILE_REDIRECT_URL as string);
+    console.log(credentials)
+    res.cookie("credentials", credentials, { httpOnly: true });
+    res.redirect(process.env.FRONTEND_REDIRECT_URL as string);
     res.end();
   }
 );

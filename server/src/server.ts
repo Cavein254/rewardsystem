@@ -19,6 +19,9 @@ import expressSession from "express-session";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+import * as dotenv from "dotenv";
+
+dotenv.config().parsed;
 
 const mydirname = process.cwd();
 const typeDefs = gql(
@@ -35,9 +38,6 @@ app.use(
   expressSession({
     cookie: {
       maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days
-      httpOnly: false,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
     },
     secret: "a santa at nasa",
     resave: false,
@@ -52,12 +52,20 @@ app.use(
 
 // Define allowed origins
 const corsOptions = {
-  origin: ["http://localhost:5173", "http://localhost:4000"],
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:4000",
+    "http://localhost:4000/graphql",
+  ],
   credentials: true,
 };
 
 app.use(cors(corsOptions));
+app.use("/", authRouter);
 
+app.get("/all", (req, res) => {
+  res.send("Hello World!");
+});
 const httpServer = http.createServer(app);
 async function startApolloServer() {
   const server = new ApolloServer<GraphQLContext>({
@@ -88,8 +96,6 @@ async function startApolloServer() {
       }),
     })
   );
-
-  app.use("/", authRouter);
 
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: 4000 }, resolve)
