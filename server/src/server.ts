@@ -19,6 +19,9 @@ import expressSession from "express-session";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+import * as dotenv from "dotenv";
+
+dotenv.config().parsed;
 
 const mydirname = process.cwd();
 const typeDefs = gql(
@@ -35,14 +38,11 @@ app.use(
   expressSession({
     cookie: {
       maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days
-      httpOnly: false,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
     },
     secret: "a santa at nasa",
     resave: false,
     saveUninitialized: false,
-    store: new PrismaSessionStore(prisma, {
+    store: new PrismaSessionStore(new PrismaClient(), {
       checkPeriod: 2 * 60 * 1000, //ms
       dbRecordIdIsSessionId: true,
       dbRecordIdFunction: undefined,
