@@ -19,6 +19,8 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (data && data.getCurrentUser) {
+      console.log("Getting the current user");
+      console.log(data);
       setUser(data.getCurrentUser);
     } else if (error) {
       setUser(undefined);

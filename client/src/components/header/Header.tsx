@@ -6,6 +6,8 @@ import DropdownHeader from "./DropdownHeader";
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  console.log("user in the header");
+  console.log(user);
   return (
     <div className="flex flex-row justify-between items-center w-full bg-slate-800 px-4 py-4">
       <div className="">
@@ -17,7 +19,7 @@ const Header = () => {
         <div>
           {user !== undefined ? (
             <>
-            <DropdownHeader user={user}/>
+              <DropdownHeader user={user} />
             </>
           ) : (
             <Button className="bg-slate-900 rounded-lg text-white hover:bg-slate-200 hover:text-black">

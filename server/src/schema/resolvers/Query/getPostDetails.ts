@@ -10,6 +10,10 @@ export const getPostDetails: NonNullable<
     where: {
       slug,
     },
+    include: {
+      user: true,
+      comments: true,
+    },
   });
   return postDetails;
 };
