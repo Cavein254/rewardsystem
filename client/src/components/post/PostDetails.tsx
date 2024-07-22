@@ -2,6 +2,7 @@ import { GET_POST_DETAILS } from "@/graphql/operations/query/posts";
 import { useQuery } from "@apollo/client";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
+import "./_quiltext.css";
 
 const PostDetails = () => {
   const { slug } = useParams();
@@ -27,8 +28,13 @@ const PostDetails = () => {
         </div>
       </div>
       <div>
-        <h1>{post?.title}</h1>
-        <ReactQuill theme={"bubble"} value={post?.body} readOnly={true} />
+        <h1 className="text-5xl font-bold">{post?.title}</h1>
+        <ReactQuill
+          theme={"bubble"}
+          className="ql-editor"
+          value={post?.body}
+          readOnly={true}
+        />
       </div>
     </div>
   );
