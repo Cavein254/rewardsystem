@@ -72,7 +72,7 @@ export type Query = {
   __typename?: 'Query';
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getAllUsers?: Maybe<Array<Maybe<User>>>;
-  getCurrentUser: User;
+  getCurrentUser?: Maybe<User>;
   getPostDetails?: Maybe<PostDetails>;
   healthCheck?: Maybe<Scalars['String']['output']>;
   hello?: Maybe<Scalars['String']['output']>;
@@ -239,7 +239,7 @@ export type PostDetailsResolvers<ContextType = any, ParentType extends Resolvers
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getAllUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
-  getCurrentUser?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   getPostDetails?: Resolver<Maybe<ResolversTypes['PostDetails']>, ParentType, ContextType, RequireFields<QuerygetPostDetailsArgs, 'slug'>>;
   healthCheck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

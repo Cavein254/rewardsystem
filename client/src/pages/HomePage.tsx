@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 
 const HomePage = () => {
   const { data } = useQuery(GET_ALL_POSTS);
+
   if (!data) {
     return <h1>There are Currently no posts</h1>;
   }

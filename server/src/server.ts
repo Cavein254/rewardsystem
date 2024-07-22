@@ -50,22 +50,6 @@ app.use(
   })
 );
 
-// Define allowed origins
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:4000",
-    "http://localhost:4000/graphql",
-  ],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.use("/", authRouter);
-
-app.get("/all", (req, res) => {
-  res.send("Hello World!");
-});
 const httpServer = http.createServer(app);
 async function startApolloServer() {
   const server = new ApolloServer<GraphQLContext>({
@@ -85,6 +69,16 @@ async function startApolloServer() {
   });
   await server.start();
 
+  // Define allowed origins
+  const corsOptions = {
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:4000",
+      "http://localhost:4000/graphql",
+    ],
+    credentials: true,
+  };
+
   app.use(
     "/graphql",
     cors<cors.CorsRequest>(corsOptions),
@@ -96,6 +90,8 @@ async function startApolloServer() {
       }),
     })
   );
+
+  app.use("/", authRouter);
 
   await new Promise<void>((resolve) =>
     httpServer.listen({ port: 4000 }, resolve)

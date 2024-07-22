@@ -4,10 +4,9 @@ export const getCurrentUser: NonNullable<
 > = async (_parent, _arg, ctx) => {
   const { prisma } = ctx;
 
-  const { userId } = await ctx.req.cookies.credentials;
-  // const userId = "clygzqm450000f79uicq5aze8";
-  console.log("on user side");
-  console.log(userId);
+  const cook = await ctx.req.cookies.credentials;
+  console.log("--------");
+  const userId = "clygzqm450000f79uicq5aze8";
 
   const user = await prisma.user.findUnique({
     where: {

@@ -1,6 +1,6 @@
 type Query {
   hello: String
-  getCurrentUser: User!
+  getCurrentUser: User
   getAllPosts: [Post]
   getPostDetails(slug: String!): PostDetails
   getAllUsers: [User]
