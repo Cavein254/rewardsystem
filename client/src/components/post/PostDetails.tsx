@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
 import "./_quiltext.css";
+import Comment from "../comment/Comment";
 
 const PostDetails = () => {
   const { slug } = useParams();
@@ -14,27 +15,39 @@ const PostDetails = () => {
 
   return (
     <div>
-      <div>
-        <div>
-          <img
-            src={post?.user?.image}
-            alt="user image"
-            className="rounded-full w-[25px]"
-          />
-          <h4>Author : {post?.user?.name}</h4>
+      <div className="mt-[5%]">
+        <div className="flex justify-end">
+          <div className="flex flex-row items-center">
+            <div className="mr-2">
+              <img
+                src={post?.user?.image}
+                alt="user image"
+                className="rounded-full w-[50px]"
+              />
+            </div>
+            <div>
+              <h4 className="text-2xl">
+                Author : <span className="font-bold">{post?.user?.name}</span>
+              </h4>
+              <h4>
+                Posted: <span className="font-bold">{post?.createdAt}</span>
+              </h4>
+            </div>
+          </div>
         </div>
         <div>
-          <h4>Posted: {post?.createdAt}</h4>
+          <h1 className="text-5xl font-bold">{post?.title}</h1>
+          <ReactQuill
+            theme={"bubble"}
+            className="ql-editor"
+            value={post?.body}
+            readOnly={true}
+          />
         </div>
       </div>
       <div>
-        <h1 className="text-5xl font-bold">{post?.title}</h1>
-        <ReactQuill
-          theme={"bubble"}
-          className="ql-editor"
-          value={post?.body}
-          readOnly={true}
-        />
+        <h4 className="text-3xl font-bold">Latest Comments</h4>
+        <Comment />
       </div>
     </div>
   );
