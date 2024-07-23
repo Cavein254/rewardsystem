@@ -26,6 +26,11 @@ export type Comment = {
   user?: Maybe<User>;
 };
 
+export type CreateCommentInput = {
+  body: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
+};
+
 export type CreatePostInput = {
   author: Scalars['String']['input'];
   body: Scalars['String']['input'];
@@ -35,7 +40,13 @@ export type CreatePostInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createComment?: Maybe<SuccessResults>;
   createPost?: Maybe<SuccessResults>;
+};
+
+
+export type MutationcreateCommentArgs = {
+  input: CreateCommentInput;
 };
 
 
@@ -70,6 +81,7 @@ export type PostDetails = {
 
 export type Query = {
   __typename?: 'Query';
+  getAllComments?: Maybe<Array<Maybe<Comment>>>;
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getCurrentUser?: Maybe<User>;
@@ -172,6 +184,7 @@ export type ResolversTypes = {
   Comment: ResolverTypeWrapper<Comment>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
   Mutation: ResolverTypeWrapper<{}>;
   Post: ResolverTypeWrapper<Post>;
@@ -187,6 +200,7 @@ export type ResolversParentTypes = {
   Comment: Comment;
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
+  CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
   Mutation: {};
   Post: Post;
@@ -208,6 +222,7 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createComment?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreateCommentArgs, 'input'>>;
   createPost?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreatePostArgs, 'input'>>;
 };
 
@@ -237,6 +252,7 @@ export type PostDetailsResolvers<ContextType = any, ParentType extends Resolvers
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getAllComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getAllUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;

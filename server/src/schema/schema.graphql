@@ -4,11 +4,18 @@ type Query {
   getAllPosts: [Post]
   getPostDetails(slug: String!): PostDetails
   getAllUsers: [User]
+  getAllComments: [Comment]
   healthCheck: String
 }
 
 type Mutation {
   createPost(input: CreatePostInput!): SuccessResults
+  createComment(input: CreateCommentInput!): SuccessResults
+}
+
+input CreateCommentInput {
+  body: String!
+  userId: String!
 }
 
 input CreatePostInput {
