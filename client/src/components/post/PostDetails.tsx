@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import "./_quiltext.css";
 import Comment from "../comment/Comment";
 import CreateComment from "../comment/CreateComment";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const PostDetails = () => {
   const { slug } = useParams();
@@ -12,11 +14,17 @@ const PostDetails = () => {
     variables: { slug },
   });
   const post = data?.getPostDetails;
+  const navigate = useNavigate();
   console.log(post);
 
   return (
     <div>
-      <div className="mt-[5%]">
+      <div className="mt-[3%]">
+        <button className="hover:text-red-800" onClick={() => navigate(-1)}>
+          <IoArrowBackCircleSharp className="text-6xl" />
+        </button>
+      </div>
+      <div className="mt-[2%]">
         <div className="flex justify-end">
           <div className="flex flex-row items-center">
             <div className="mr-2">
