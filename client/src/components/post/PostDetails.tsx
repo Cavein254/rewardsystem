@@ -4,6 +4,7 @@ import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
 import "./_quiltext.css";
 import Comment from "../comment/Comment";
+import CreateComment from "../comment/CreateComment";
 
 const PostDetails = () => {
   const { slug } = useParams();
@@ -44,6 +45,9 @@ const PostDetails = () => {
             readOnly={true}
           />
         </div>
+      </div>
+      <div>
+        <CreateComment />
       </div>
       <div>
         <h4 className="text-3xl font-bold">Latest Comments</h4>
