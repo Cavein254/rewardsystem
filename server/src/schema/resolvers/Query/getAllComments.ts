@@ -1,2 +1,8 @@
-import type   { QueryResolvers } from './../../types.generated';
-        export const getAllComments: NonNullable<QueryResolvers['getAllComments']> = async (_parent, _arg, _ctx) => { /* Implement Query.getAllComments resolver logic here */ };
+import type { QueryResolvers } from "./../../types.generated";
+export const getAllComments: NonNullable<
+  QueryResolvers["getAllComments"]
+> = async (_parent, _arg, ctx) => {
+  const { prisma } = ctx;
+  const comments = await prisma.comment.findMany();
+  return comments;
+};
