@@ -28,6 +28,7 @@ export type Comment = {
 
 export type CreateCommentInput = {
   body: Scalars['String']['input'];
+  postId: Scalars['String']['input'];
   userId: Scalars['String']['input'];
 };
 

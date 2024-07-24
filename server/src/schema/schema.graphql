@@ -16,6 +16,7 @@ type Mutation {
 input CreateCommentInput {
   body: String!
   userId: String!
+  postId: String!
 }
 
 input CreatePostInput {
