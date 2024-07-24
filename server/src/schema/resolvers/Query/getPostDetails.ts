@@ -16,6 +16,9 @@ export const getPostDetails: NonNullable<
         orderBy: {
           createdAt: "desc",
         },
+        include: {
+          user: true,
+        },
       },
     },
   });
