@@ -10,24 +10,36 @@ import { useNavigate } from "react-router-dom";
 import { CREATE_COMMENT } from "@/graphql/operations/mutation/comment";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/Auth";
+import { GetPostCommentsQuery } from "@/__generated__/graphql";
 
 const PostDetails = () => {
   const { user } = useContext(AuthContext);
+  const [comments, setComments] = useState<GetPostCommentsQuery | undefined>(
+    undefined
+  );
   const userId = user?.id;
   const { slug } = useParams();
   const [body, setBody] = useState("");
-  const { data } = useQuery(GET_POST_DETAILS, {
+  const { data, refetch } = useQuery(GET_POST_DETAILS, {
     variables: { slug },
   });
+  const postId = data?.getPostDetails?.id;
+  const postComments = data?.getPostDetails?.comments;
+
+  const commentList = postComments?.map((comment) => (
+    <Comment key={comment.id} comment={comment} />
+  ));
   const [createComment] = useMutation(CREATE_COMMENT, {
     variables: {
       input: {
         body,
         userId,
+        postId,
       },
     },
-    onCompleted: () => {
+    onCompleted: (data) => {
       setBody("");
+      refetch();
     },
     onError: (error) => {
       console.log(error);
@@ -36,8 +48,7 @@ const PostDetails = () => {
   const post = data?.getPostDetails;
   const navigate = useNavigate();
   const onEnterPress = () => {
-    console.log("pressed");
-    // createComment();
+    createComment();
   };
 
   return (
@@ -77,16 +88,22 @@ const PostDetails = () => {
           />
         </div>
       </div>
-      <div>
-        <CreateComment
-          body={body}
-          setBody={setBody}
-          onEnterPress={onEnterPress}
-        />
-      </div>
+      {user && (
+        <div>
+          <CreateComment
+            body={body}
+            setBody={setBody}
+            onEnterPress={onEnterPress}
+          />
+        </div>
+      )}
       <div>
         <h4 className="text-3xl font-bold">Latest Comments</h4>
-        <Comment />
+        {postComments?.length !== 0 && (
+          <div className="border-2 border-gray-400 p-4 overflow-y-auto h-[30vh]">
+            {commentList}
+          </div>
+        )}
       </div>
     </div>
   );

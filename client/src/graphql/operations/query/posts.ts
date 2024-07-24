@@ -31,6 +31,7 @@ query GetPostDetails($slug:String!) {
       updatedAt
       postId
       user {
+        id
         name
       }
     }
