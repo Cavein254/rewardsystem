@@ -5,6 +5,7 @@ type Query {
   getPostDetails(slug: String!): PostDetails
   getAllUsers: [User]
   getAllComments: [Comment]
+  getPostComent(id: String!): [Comment]
   healthCheck: String
 }
 

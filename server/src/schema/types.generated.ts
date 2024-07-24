@@ -86,9 +86,15 @@ export type Query = {
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getCurrentUser?: Maybe<User>;
+  getPostComent?: Maybe<Array<Maybe<Comment>>>;
   getPostDetails?: Maybe<PostDetails>;
   healthCheck?: Maybe<Scalars['String']['output']>;
   hello?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type QuerygetPostComentArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -257,6 +263,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getAllUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  getPostComent?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QuerygetPostComentArgs, 'id'>>;
   getPostDetails?: Resolver<Maybe<ResolversTypes['PostDetails']>, ParentType, ContextType, RequireFields<QuerygetPostDetailsArgs, 'slug'>>;
   healthCheck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
