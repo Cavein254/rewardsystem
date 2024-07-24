@@ -13,7 +13,7 @@ import { AuthContext } from "@/Auth";
 
 const PostDetails = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const userId = user?.id;
   const { slug } = useParams();
   const [body, setBody] = useState("");
   const { data } = useQuery(GET_POST_DETAILS, {
@@ -23,6 +23,7 @@ const PostDetails = () => {
     variables: {
       input: {
         body,
+        userId,
       },
     },
     onCompleted: () => {
@@ -35,7 +36,8 @@ const PostDetails = () => {
   const post = data?.getPostDetails;
   const navigate = useNavigate();
   const onEnterPress = () => {
-    createComment();
+    console.log("pressed");
+    // createComment();
   };
 
   return (

@@ -12,7 +12,9 @@ const CreateComment = ({ body, setBody, onEnterPress }: CommentProps) => {
   };
   const handlekeypressDown = (e: KeyboardEvent<HTMLInputElement>) => {
     e.preventDefault;
-    onEnterPress();
+    if (e.key === "Enter") {
+      onEnterPress();
+    }
   };
   return (
     <div className="my-4">
