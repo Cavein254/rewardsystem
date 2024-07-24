@@ -1,5 +1,7 @@
 import type { QueryResolvers } from "./../../types.generated";
-export const getPostDetails: NonNullable<QueryResolvers['getPostDetails']> = async (_parent, arg, ctx) => {
+export const getPostDetails: NonNullable<
+  QueryResolvers["getPostDetails"]
+> = async (_parent, arg, ctx) => {
   console.log("post details");
   const { slug } = arg;
   const { prisma } = ctx;
@@ -10,7 +12,11 @@ export const getPostDetails: NonNullable<QueryResolvers['getPostDetails']> = asy
     },
     include: {
       user: true,
-      comments: true,
+      comments: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
     },
   });
   return postDetails;
