@@ -1,5 +1,5 @@
 import { GET_POST_DETAILS } from "@/graphql/operations/query/posts";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import ReactQuill from "react-quill";
 import { useParams } from "react-router-dom";
 import "./_quiltext.css";
@@ -7,15 +7,29 @@ import Comment from "../comment/Comment";
 import CreateComment from "../comment/CreateComment";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { CREATE_COMMENT } from "@/graphql/operations/mutation/comment";
+import { useState } from "react";
 
 const PostDetails = () => {
   const { slug } = useParams();
+  const [body, setBody] = useState("");
   const { data } = useQuery(GET_POST_DETAILS, {
     variables: { slug },
+  });
+  const [createComment] = useMutation(CREATE_COMMENT, {
+    variables: {
+      input: {
+        body,
+        userId: 7,
+      },
+    },
   });
   const post = data?.getPostDetails;
   const navigate = useNavigate();
   console.log(post);
+  const onEnterPress = () => {
+    console.log("Pressed enter key");
+  };
 
   return (
     <div>
@@ -55,7 +69,11 @@ const PostDetails = () => {
         </div>
       </div>
       <div>
-        <CreateComment />
+        <CreateComment
+          body={body}
+          setBody={setBody}
+          onEnterPress={onEnterPress}
+        />
       </div>
       <div>
         <h4 className="text-3xl font-bold">Latest Comments</h4>

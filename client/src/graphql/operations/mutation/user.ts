@@ -6,4 +6,5 @@ mutation CreatePost($input: CreatePostInput!) {
       message
       success
     }
-  }`);
+  }  
+  `);
