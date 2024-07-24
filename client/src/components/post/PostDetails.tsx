@@ -8,9 +8,12 @@ import CreateComment from "../comment/CreateComment";
 import { IoArrowBackCircleSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { CREATE_COMMENT } from "@/graphql/operations/mutation/comment";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/Auth";
 
 const PostDetails = () => {
+  const { user } = useContext(AuthContext);
+  console.log(user);
   const { slug } = useParams();
   const [body, setBody] = useState("");
   const { data } = useQuery(GET_POST_DETAILS, {
@@ -20,15 +23,19 @@ const PostDetails = () => {
     variables: {
       input: {
         body,
-        userId: 7,
       },
+    },
+    onCompleted: () => {
+      setBody("");
+    },
+    onError: (error) => {
+      console.log(error);
     },
   });
   const post = data?.getPostDetails;
   const navigate = useNavigate();
-  console.log(post);
   const onEnterPress = () => {
-    console.log("Pressed enter key");
+    createComment();
   };
 
   return (
