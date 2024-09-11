@@ -7,7 +7,11 @@ query GetAllPosts {
         id
         title
         slug
+        views
         body
+        _count {
+          comments
+        }
         published
         createdAt
         updatedAt
@@ -22,6 +26,7 @@ query GetPostDetails($slug:String!) {
     title
     slug
     body
+    views
     published
     createdAt
     updatedAt

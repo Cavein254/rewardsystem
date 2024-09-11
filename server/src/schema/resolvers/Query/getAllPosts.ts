@@ -7,11 +7,14 @@ export const getAllPosts: NonNullable<QueryResolvers['getAllPosts']> = async (
   const { prisma } = ctx;
   const posts = await prisma.post.findMany({
     include: {
-      comments: true,
+      _count: {
+        select: { comments: true },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
   });
+  console.log(posts);
   return posts;
 };

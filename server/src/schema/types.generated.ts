@@ -26,6 +26,11 @@ export type Comment = {
   user?: Maybe<User>;
 };
 
+export type CommentCount = {
+  __typename?: 'CommentCount';
+  comments?: Maybe<Scalars['Int']['output']>;
+};
+
 export type CreateCommentInput = {
   body: Scalars['String']['input'];
   postId: Scalars['String']['input'];
@@ -73,6 +78,7 @@ export type MutationincrementPageViewArgs = {
 
 export type Post = {
   __typename?: 'Post';
+  _count?: Maybe<CommentCount>;
   body?: Maybe<Scalars['String']['output']>;
   comments?: Maybe<Array<Maybe<Comment>>>;
   createdAt?: Maybe<Scalars['String']['output']>;
@@ -81,6 +87,7 @@ export type Post = {
   slug?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['String']['output']>;
+  views?: Maybe<Scalars['Int']['output']>;
 };
 
 export type PostDetails = {
@@ -94,6 +101,7 @@ export type PostDetails = {
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['String']['output']>;
   user?: Maybe<User>;
+  views?: Maybe<Scalars['Int']['output']>;
 };
 
 export type Query = {
@@ -207,6 +215,8 @@ export type ResolversTypes = {
   Comment: ResolverTypeWrapper<Comment>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  CommentCount: ResolverTypeWrapper<CommentCount>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
   ItemId: ItemId;
@@ -224,6 +234,8 @@ export type ResolversParentTypes = {
   Comment: Comment;
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
+  CommentCount: CommentCount;
+  Int: Scalars['Int']['output'];
   CreateCommentInput: CreateCommentInput;
   CreatePostInput: CreatePostInput;
   ItemId: ItemId;
@@ -246,6 +258,11 @@ export type CommentResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CommentCountResolvers<ContextType = any, ParentType extends ResolversParentTypes['CommentCount'] = ResolversParentTypes['CommentCount']> = {
+  comments?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createComment?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreateCommentArgs, 'input'>>;
   createPost?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreatePostArgs, 'input'>>;
@@ -254,6 +271,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {
+  _count?: Resolver<Maybe<ResolversTypes['CommentCount']>, ParentType, ContextType>;
   body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -262,6 +280,7 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  views?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -275,6 +294,7 @@ export type PostDetailsResolvers<ContextType = any, ParentType extends Resolvers
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  views?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -306,6 +326,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 
 export type Resolvers<ContextType = any> = {
   Comment?: CommentResolvers<ContextType>;
+  CommentCount?: CommentCountResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   Post?: PostResolvers<ContextType>;
   PostDetails?: PostDetailsResolvers<ContextType>;

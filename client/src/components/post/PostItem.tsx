@@ -30,10 +30,14 @@ const PostItem = ({ post }) => {
             </span>
           </div>
           <span className="flex items-center">
-            <PiEyesFill size={18} className=" mr-2" /> Views
+            <PiEyesFill size={18} className=" mr-2" />{" "}
+            <span className="text-2xl font-bold mx-2">{post.views}</span> Views
           </span>
           <span className="flex items-center">
             <IoChatbubbles size={18} className=" mr-2" />
+            <span className="text-2xl font-bold mx-2">
+              {post._count.comments}
+            </span>
             Comments
           </span>
         </div>

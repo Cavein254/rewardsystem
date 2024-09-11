@@ -13,6 +13,7 @@ import    { createPost as Mutation_createPost } from './resolvers/Mutation/creat
 import    { deleteComment as Mutation_deleteComment } from './resolvers/Mutation/deleteComment';
 import    { incrementPageView as Mutation_incrementPageView } from './resolvers/Mutation/incrementPageView';
 import    { Comment } from './resolvers/Comment';
+import    { CommentCount } from './resolvers/CommentCount';
 import    { Post } from './resolvers/Post';
 import    { PostDetails } from './resolvers/PostDetails';
 import    { SuccessResults } from './resolvers/SuccessResults';
@@ -22,6 +23,7 @@ import    { User } from './resolvers/User';
       Mutation: { createComment: Mutation_createComment,createPost: Mutation_createPost,deleteComment: Mutation_deleteComment,incrementPageView: Mutation_incrementPageView },
       
       Comment: Comment,
+CommentCount: CommentCount,
 Post: Post,
 PostDetails: PostDetails,
 SuccessResults: SuccessResults,

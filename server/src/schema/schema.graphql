@@ -53,17 +53,22 @@ type Post {
   title: String
   slug: String
   body: String
+  views: Int
   published: Boolean
   createdAt: String
   updatedAt: String
   comments: [Comment]
+  _count: CommentCount
 }
-
+type CommentCount {
+  comments: Int
+}
 type PostDetails {
   id: ID!
   title: String
   slug: String
   body: String
+  views: Int
   published: Boolean
   createdAt: String
   updatedAt: String

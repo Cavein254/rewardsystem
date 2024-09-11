@@ -15,11 +15,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\nmutation CreateComment($input: CreateCommentInput!) {\n  createComment(input: $input) {\n    message\n    success\n  }\n}\n": types.CreateCommentDocument,
     "\nmutation DeleteComment($input: ItemId!) {\n  deleteComment(input: $input) {\n    message\n    success\n  }\n}\n": types.DeleteCommentDocument,
+    "\nmutation IncrementPageView($postId: String) {\n  incrementPageView(postId: $postId) {\n    success\n  }\n}\n": types.IncrementPageViewDocument,
     "\nmutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      message\n      success\n    }\n  }  \n  ": types.CreatePostDocument,
     "\nquery GetAllComments {\n  getAllComments {\n    body\n    createdAt\n    id\n    updatedAt\n    postId\n    user {\n      name\n    }\n  }\n}\n": types.GetAllCommentsDocument,
     "\nquery GetPostComments($getPostCommentsId: String!) {\n  getPostComments(postId: $getPostCommentsId) {\n    id\n    body\n    createdAt\n    updatedAt\n    user {\n        id\n      name\n    }\n    postId\n  }\n}\n": types.GetPostCommentsDocument,
-    "\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        body\n        published\n        createdAt\n        updatedAt\n    }\n}\n": types.GetAllPostsDocument,
-    "\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        id\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n": types.GetPostDetailsDocument,
+    "\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        views\n        body\n        _count {\n          comments\n        }\n        published\n        createdAt\n        updatedAt\n    }\n}\n": types.GetAllPostsDocument,
+    "\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    views\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        id\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n": types.GetPostDetailsDocument,
     "\nquery GetCurrentUser {\n    getCurrentUser {\n    id\n    name\n    email\n    image\n    gender\n  }\n}\n": types.GetCurrentUserDocument,
 };
 
@@ -48,6 +49,10 @@ export function gql(source: "\nmutation DeleteComment($input: ItemId!) {\n  dele
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\nmutation IncrementPageView($postId: String) {\n  incrementPageView(postId: $postId) {\n    success\n  }\n}\n"): (typeof documents)["\nmutation IncrementPageView($postId: String) {\n  incrementPageView(postId: $postId) {\n    success\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\nmutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      message\n      success\n    }\n  }  \n  "): (typeof documents)["\nmutation CreatePost($input: CreatePostInput!) {\n    createPost(input: $input) {\n      message\n      success\n    }\n  }  \n  "];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -60,11 +65,11 @@ export function gql(source: "\nquery GetPostComments($getPostCommentsId: String!
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        body\n        published\n        createdAt\n        updatedAt\n    }\n}\n"): (typeof documents)["\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        body\n        published\n        createdAt\n        updatedAt\n    }\n}\n"];
+export function gql(source: "\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        views\n        body\n        _count {\n          comments\n        }\n        published\n        createdAt\n        updatedAt\n    }\n}\n"): (typeof documents)["\nquery GetAllPosts {\n    getAllPosts {\n        id\n        title\n        slug\n        views\n        body\n        _count {\n          comments\n        }\n        published\n        createdAt\n        updatedAt\n    }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        id\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n"): (typeof documents)["\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        id\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n"];
+export function gql(source: "\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    views\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        id\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n"): (typeof documents)["\nquery GetPostDetails($slug:String!) {\n  getPostDetails(slug: $slug) {\n    id\n    title\n    slug\n    body\n    views\n    published\n    createdAt\n    updatedAt\n    comments {\n      id\n      body\n      createdAt\n      updatedAt\n      postId\n      user {\n        id\n        name\n      }\n    }\n    user {\n      id\n      name\n      email\n      image\n    }\n    \n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
