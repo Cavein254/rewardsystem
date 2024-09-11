@@ -48,6 +48,7 @@ export type Mutation = {
   createComment?: Maybe<SuccessResults>;
   createPost?: Maybe<SuccessResults>;
   deleteComment?: Maybe<SuccessResults>;
+  incrementPageView?: Maybe<SuccessResults>;
 };
 
 
@@ -63,6 +64,11 @@ export type MutationcreatePostArgs = {
 
 export type MutationdeleteCommentArgs = {
   input: ItemId;
+};
+
+
+export type MutationincrementPageViewArgs = {
+  postId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Post = {
@@ -244,6 +250,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   createComment?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreateCommentArgs, 'input'>>;
   createPost?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationcreatePostArgs, 'input'>>;
   deleteComment?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, RequireFields<MutationdeleteCommentArgs, 'input'>>;
+  incrementPageView?: Resolver<Maybe<ResolversTypes['SuccessResults']>, ParentType, ContextType, Partial<MutationincrementPageViewArgs>>;
 };
 
 export type PostResolvers<ContextType = any, ParentType extends ResolversParentTypes['Post'] = ResolversParentTypes['Post']> = {

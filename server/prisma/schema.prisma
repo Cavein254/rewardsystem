@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,81 +8,76 @@ datasource db {
 }
 
 model Session {
-  id          String   @id @default(cuid())
-  sid         String   @unique
-  data        String
-  expiresAt   DateTime
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String   @id
+  sid       String   @unique
+  data      String   @db.LongText
+  expiresAt DateTime
 }
 
+
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
-  gender String?
-  comments Comment[]
-  posts Post[]
-  Postlikes  PostLike[]
-  Commentlikes CommentLike[]
-
+  gender        String?
+  comments      Comment[]
+  posts         Post[]
+  Postlikes     PostLike[]
+  Commentlikes  CommentLike[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
 
 model Post {
-  id            String    @id @default(cuid())
-  title String @unique
-  slug String @unique
-  body String @db.Text
-  published Boolean @default(false)
-  userId String
-  user User @relation(fields:[userId], references: [id])
-  likes PostLike[]
-  comments Comment[]
+  id           String        @id @default(cuid())
+  title        String        @unique
+  slug         String        @unique
+  body         String        @db.Text
+  views        Int           @default(0)
+  published    Boolean       @default(false)
+  userId       String
+  user         User          @relation(fields: [userId], references: [id])
+  likes        PostLike[]
+  comments     Comment[]
   Commentlikes CommentLike[]
-
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-
 }
 
-
 model PostLike {
-  id String @id @default(uuid())
+  id     String   @id @default(uuid())
   userId String
   postId String
-  post Post @relation(fields:[postId], references: [id])
-  user User @relation(fields:[userId], references: [id])
-  like Boolean?
+  post   Post     @relation(fields: [postId], references: [id])
+  user   User     @relation(fields: [userId], references: [id])
+  like   Boolean?
 }
 
 model Comment {
-  id            String    @id @default(cuid())
-  body String
+  id     String @id @default(cuid())
+  body   String
   userId String
   postId String
-  post Post @relation(fields:[postId], references: [id])
-  user User @relation(fields:[userId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
 
   Commentlikes CommentLike[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
-
 }
 
 model CommentLike {
-  id String @id @default(uuid())
-  userId String
-  postId String
+  id        String   @id @default(uuid())
+  userId    String
+  postId    String
   commentId String
-  post Post @relation(fields:[postId], references: [id])
-  user User @relation(fields:[userId], references: [id])
-  comment Comment @relation(fields:[commentId], references: [id])
-  like Boolean?
+  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  like      Boolean?
 }

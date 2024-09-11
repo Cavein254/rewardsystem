@@ -10,7 +10,10 @@ type Query {
 }
 
 type Mutation {
+  #posts
   createPost(input: CreatePostInput!): SuccessResults
+  incrementPageView(postId: String): SuccessResults
+  #comments
   createComment(input: CreateCommentInput!): SuccessResults
   deleteComment(input: ItemId!): SuccessResults
 }

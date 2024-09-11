@@ -11,6 +11,7 @@ import    { hello as Query_hello } from './resolvers/Query/hello';
 import    { createComment as Mutation_createComment } from './resolvers/Mutation/createComment';
 import    { createPost as Mutation_createPost } from './resolvers/Mutation/createPost';
 import    { deleteComment as Mutation_deleteComment } from './resolvers/Mutation/deleteComment';
+import    { incrementPageView as Mutation_incrementPageView } from './resolvers/Mutation/incrementPageView';
 import    { Comment } from './resolvers/Comment';
 import    { Post } from './resolvers/Post';
 import    { PostDetails } from './resolvers/PostDetails';
@@ -18,7 +19,7 @@ import    { SuccessResults } from './resolvers/SuccessResults';
 import    { User } from './resolvers/User';
     export const resolvers: Resolvers = {
       Query: { getAllComments: Query_getAllComments,getAllPosts: Query_getAllPosts,getAllUsers: Query_getAllUsers,getCurrentUser: Query_getCurrentUser,getPostComments: Query_getPostComments,getPostDetails: Query_getPostDetails,healthCheck: Query_healthCheck,hello: Query_hello },
-      Mutation: { createComment: Mutation_createComment,createPost: Mutation_createPost,deleteComment: Mutation_deleteComment },
+      Mutation: { createComment: Mutation_createComment,createPost: Mutation_createPost,deleteComment: Mutation_deleteComment,incrementPageView: Mutation_incrementPageView },
       
       Comment: Comment,
 Post: Post,
