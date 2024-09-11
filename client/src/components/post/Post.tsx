@@ -5,12 +5,15 @@ import { useMutation } from "@apollo/client";
 import { CREATE_POST } from "@/graphql/operations/mutation/user";
 import { AuthContext } from "@/Auth";
 import { createSlug } from "@/lib/utils";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const Post = () => {
   const [post, setPost] = useState("");
+  const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [createPost] = useMutation(CREATE_POST, {
     variables: {
@@ -22,11 +25,12 @@ const Post = () => {
       },
     },
     onCompleted: (data) => {
-      console.log(data);
-      return redirect("/dashboard");
-    },
-    onError: (error) => {
-      console.log(error);
+      if (!data?.createPost?.success) {
+        setError(data?.createPost?.message);
+      }
+      if (data?.createPost?.success) {
+        return navigate("/dashboard", { replace: true });
+      }
     },
   });
   const handleCreatePost = () => {
@@ -38,6 +42,11 @@ const Post = () => {
   };
   return (
     <div>
+      {error && (
+        <div className="rounded-md px-4 py-2 bg-red-500">
+          <h1 className="text-2xl font-bold text-white">{error}</h1>
+        </div>
+      )}
       <div className="flex justify-between py-4">
         <h1 className="uppercase text-3xl font-bold mb-4">Create a Post</h1>
         <Button
