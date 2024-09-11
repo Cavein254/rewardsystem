@@ -7,19 +7,14 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 passport.serializeUser((user: any, done) => {
-  done(null, {
-    id: user.id,
-    name: user.name,
-    image: user.image,
-    email: user.email,
-  });
+  done(null, user);
 });
 
 passport.deserializeUser(async (user: any, done) => {
-  const { id } = user;
+  const { userId } = user;
   const dbUser = await prisma.user.findUnique({
     where: {
-      id,
+      id: userId,
     },
   });
 

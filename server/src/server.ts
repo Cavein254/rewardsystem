@@ -32,13 +32,15 @@ const typeDefs = gql(
 );
 
 const app = express();
-
 app.use(cookieParser());
 
 app.use(
   expressSession({
     cookie: {
-      maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days
+      maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days 1000 * 60 * 60 * 24, // 1 day
+      httpOnly: true,
+      // sameSite: "true",
+      // secure: true,
     },
     secret: "a santa at nasa",
     resave: false,

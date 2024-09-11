@@ -3,10 +3,7 @@ export const getCurrentUser: NonNullable<
   QueryResolvers["getCurrentUser"]
 > = async (_parent, _arg, ctx) => {
   const { prisma } = ctx;
-  const userId = "1";
-  const userH = await ctx.req.user;
-  console.log("Person user");
-  console.log(userH);
+  const userId = "clygzqm450000f79uicq5aze8";
 
   const user = await prisma.user.findUnique({
     where: {

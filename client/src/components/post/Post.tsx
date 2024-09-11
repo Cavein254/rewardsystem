@@ -40,7 +40,10 @@ const Post = () => {
     <div>
       <div className="flex justify-between py-4">
         <h1 className="uppercase text-3xl font-bold mb-4">Create a Post</h1>
-        <Button className="text-white bg-gray-700 hover:border-none hover:bg-green-600 hover:text-white">
+        <Button
+          className="text-white bg-gray-700 hover:border-none hover:bg-green-600 hover:text-white"
+          onClick={handleCreatePost}
+        >
           Publish
         </Button>
       </div>
