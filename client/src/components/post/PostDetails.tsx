@@ -11,9 +11,10 @@ import {
   CREATE_COMMENT,
   DELETE_COMMENT,
 } from "@/graphql/operations/mutation/comment";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/Auth";
 import { GetPostCommentsQuery } from "@/__generated__/graphql";
+import { INCREMENT_POST_VIEWS } from "@/graphql/operations/mutation/post";
 
 const PostDetails = () => {
   const { user } = useContext(AuthContext);
@@ -45,6 +46,11 @@ const PostDetails = () => {
       console.log(error);
     },
   });
+  const [incrementPageView] = useMutation(INCREMENT_POST_VIEWS, {
+    variables: {
+      postId: slug,
+    },
+  });
   const commentList = postComments?.map((comment) => (
     <Comment key={comment.id} comment={comment} refetch={refetch} />
   ));
@@ -54,6 +60,9 @@ const PostDetails = () => {
     createComment();
   };
 
+  useEffect(() => {
+    incrementPageView();
+  }, [slug]);
   return (
     <div>
       <div className="mt-[3%]">
