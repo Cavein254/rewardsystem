@@ -15,7 +15,8 @@ import resolvers from "./resolvers";
 import authRouter from "./route/auth.route";
 import prisma from "./lib/prisma";
 import { GraphQLContext } from "./types";
-import expressSession from "express-session";
+import session from "express-session";
+import { Store } from "express-session";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
@@ -35,14 +36,11 @@ const app = express();
 app.use(cookieParser());
 
 app.use(
-  expressSession({
+  session({
     cookie: {
-      maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days 1000 * 60 * 60 * 24, // 1 day
-      httpOnly: true,
-      // sameSite: "true",
-      // secure: true,
+      maxAge: 21 * 24 * 60 * 60 * 1000, // 21 days
     },
-    secret: "a santa at nasa",
+    secret: "life at the nasa",
     resave: false,
     saveUninitialized: false,
     store: new PrismaSessionStore(new PrismaClient(), {
@@ -79,7 +77,7 @@ async function startApolloServer() {
 
   app.use(
     "/graphql",
-    cors<cors.CorsRequest>({
+    cors({
       origin: [
         "http://localhost:5173",
         "http://localhost:4000",
@@ -89,8 +87,8 @@ async function startApolloServer() {
     }),
     express.json(),
     expressMiddleware(server, {
-      context: async ({ req }): Promise<GraphQLContext> => {
-        return { prisma, req };
+      context: async ({ req, res }): Promise<GraphQLContext> => {
+        return { prisma, req, res };
       },
     })
   );

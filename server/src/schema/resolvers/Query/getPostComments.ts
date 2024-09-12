@@ -1,6 +1,7 @@
 import type { QueryResolvers } from "./../../types.generated";
-export const getPostComments: NonNullable<QueryResolvers['getPostComments']> = async (_parent, arg, ctx) => {
-  console.log("calling commnets");
+export const getPostComments: NonNullable<
+  QueryResolvers["getPostComments"]
+> = async (_parent, arg, ctx) => {
   const { prisma } = ctx;
   const { postId } = arg;
   const postComments = await prisma.comment.findMany({
@@ -11,6 +12,5 @@ export const getPostComments: NonNullable<QueryResolvers['getPostComments']> = a
       user: true,
     },
   });
-  console.log(postComments);
   return postComments;
 };
