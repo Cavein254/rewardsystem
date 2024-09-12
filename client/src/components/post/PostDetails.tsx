@@ -15,6 +15,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/Auth";
 import { GetPostCommentsQuery } from "@/__generated__/graphql";
 import { INCREMENT_POST_VIEWS } from "@/graphql/operations/mutation/post";
+import ReactionBox from "../reaction/ReactionBox";
 
 const PostDetails = () => {
   const { user } = useContext(AuthContext);
@@ -100,6 +101,7 @@ const PostDetails = () => {
           />
         </div>
       </div>
+      <ReactionBox />
       {user && (
         <div>
           <CreateComment
