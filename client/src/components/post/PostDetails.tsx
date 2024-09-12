@@ -101,7 +101,7 @@ const PostDetails = () => {
           />
         </div>
       </div>
-      <ReactionBox />
+      <ReactionBox postId={post?.id} />
       {user && (
         <div>
           <CreateComment

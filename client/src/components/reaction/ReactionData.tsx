@@ -2,7 +2,7 @@ import { FaHeart, FaHeartBroken } from "react-icons/fa";
 import { FaThumbsDown, FaThumbsUp, FaFaceSmileWink } from "react-icons/fa6";
 import { PiMaskHappyFill, PiMaskSadFill } from "react-icons/pi";
 import { TbMoodSadFilled } from "react-icons/tb";
-const style = "text-2xl";
+const style = "text-3xl";
 export const ReactData = [
   {
     icon: <FaHeart className={style} />,
