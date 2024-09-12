@@ -12,3 +12,19 @@ query GetPostReactions($postId: String!) {
   }
 }
 `);
+
+export const GET_MY_POST_REACTION = gql(`
+  query GetMyPostReaction($postId: String!, $userId: String!) {
+  getMyPostReaction(postId: $postId, userId: $userId) {
+    reactionType
+  }
+}
+`);
+
+export const ADD_POST_REACTION = gql(`
+  mutation AddReaction($input: AddReactionInput!) {
+  addReaction(input: $input) {
+    success
+  }
+}
+  `);

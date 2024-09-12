@@ -4,6 +4,7 @@
 import    { getAllPosts as Query_getAllPosts } from './resolvers/Query/getAllPosts';
 import    { getAllUsers as Query_getAllUsers } from './resolvers/Query/getAllUsers';
 import    { getCurrentUser as Query_getCurrentUser } from './resolvers/Query/getCurrentUser';
+import    { getMyPostReaction as Query_getMyPostReaction } from './resolvers/Query/getMyPostReaction';
 import    { getPostComments as Query_getPostComments } from './resolvers/Query/getPostComments';
 import    { getPostDetails as Query_getPostDetails } from './resolvers/Query/getPostDetails';
 import    { getPostReactions as Query_getPostReactions } from './resolvers/Query/getPostReactions';
@@ -24,7 +25,7 @@ import    { SuccessReactionResults } from './resolvers/SuccessReactionResults';
 import    { SuccessResults } from './resolvers/SuccessResults';
 import    { User } from './resolvers/User';
     export const resolvers: Resolvers = {
-      Query: { getAllComments: Query_getAllComments,getAllPosts: Query_getAllPosts,getAllUsers: Query_getAllUsers,getCurrentUser: Query_getCurrentUser,getPostComments: Query_getPostComments,getPostDetails: Query_getPostDetails,getPostReactions: Query_getPostReactions,healthCheck: Query_healthCheck,hello: Query_hello },
+      Query: { getAllComments: Query_getAllComments,getAllPosts: Query_getAllPosts,getAllUsers: Query_getAllUsers,getCurrentUser: Query_getCurrentUser,getMyPostReaction: Query_getMyPostReaction,getPostComments: Query_getPostComments,getPostDetails: Query_getPostDetails,getPostReactions: Query_getPostReactions,healthCheck: Query_healthCheck,hello: Query_hello },
       Mutation: { addReaction: Mutation_addReaction,createComment: Mutation_createComment,createPost: Mutation_createPost,deleteComment: Mutation_deleteComment,incrementPageView: Mutation_incrementPageView },
       
       Comment: Comment,

@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import { useState, createContext, useEffect, useMemo } from "react";
 import { GET_CURRENT_USER } from "./graphql/operations/query/user";
-import { GetCurrentUserQuery } from "./__generated__/graphql";
+import { User } from "./__generated__/graphql";
 
 interface UserContextProps {
-  user?: GetCurrentUserQuery;
-  setUser: (user: GetCurrentUserQuery | undefined) => void;
+  user?: User;
+  setUser: (user: User | undefined) => void;
 }
 export const AuthContext = createContext<UserContextProps>({
   user: undefined,
@@ -13,7 +13,7 @@ export const AuthContext = createContext<UserContextProps>({
 });
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState<GetCurrentUserQuery | undefined>(undefined);
+  const [user, setUser] = useState<User | undefined>(undefined);
 
   const { data, error } = useQuery(GET_CURRENT_USER);
   console.log("usequery user");

@@ -9,6 +9,7 @@ type Query {
   healthCheck: String
   #Reactions
   getPostReactions(postId: String!): SuccessReactionResults
+  getMyPostReaction(postId: String!, userId: String!): [Reaction]
 }
 
 type Mutation {

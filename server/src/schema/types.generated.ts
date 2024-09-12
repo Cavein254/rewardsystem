@@ -126,11 +126,18 @@ export type Query = {
   getAllPosts?: Maybe<Array<Maybe<Post>>>;
   getAllUsers?: Maybe<Array<Maybe<User>>>;
   getCurrentUser?: Maybe<User>;
+  getMyPostReaction?: Maybe<Array<Maybe<Reaction>>>;
   getPostComments?: Maybe<Array<Maybe<Comment>>>;
   getPostDetails?: Maybe<PostDetails>;
   getPostReactions?: Maybe<SuccessReactionResults>;
   healthCheck?: Maybe<Scalars['String']['output']>;
   hello?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type QuerygetMyPostReactionArgs = {
+  postId: Scalars['String']['input'];
+  userId: Scalars['String']['input'];
 };
 
 
@@ -372,6 +379,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getAllPosts?: Resolver<Maybe<Array<Maybe<ResolversTypes['Post']>>>, ParentType, ContextType>;
   getAllUsers?: Resolver<Maybe<Array<Maybe<ResolversTypes['User']>>>, ParentType, ContextType>;
   getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  getMyPostReaction?: Resolver<Maybe<Array<Maybe<ResolversTypes['Reaction']>>>, ParentType, ContextType, RequireFields<QuerygetMyPostReactionArgs, 'postId' | 'userId'>>;
   getPostComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QuerygetPostCommentsArgs, 'postId'>>;
   getPostDetails?: Resolver<Maybe<ResolversTypes['PostDetails']>, ParentType, ContextType, RequireFields<QuerygetPostDetailsArgs, 'slug'>>;
   getPostReactions?: Resolver<Maybe<ResolversTypes['SuccessReactionResults']>, ParentType, ContextType, RequireFields<QuerygetPostReactionsArgs, 'postId'>>;
