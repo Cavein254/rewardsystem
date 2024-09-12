@@ -6,7 +6,7 @@ export const incrementPageView: NonNullable<
   const { postId } = arg;
   const { prisma } = ctx;
   try {
-    const post = await prisma.post.update({
+    await prisma.post.update({
       where: {
         slug: postId,
       },
