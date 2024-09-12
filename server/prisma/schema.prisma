@@ -14,36 +14,35 @@ model Session {
   expiresAt DateTime
 }
 
-
 model User {
-  id            String        @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?       @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   gender        String?
   comments      Comment[]
   posts         Post[]
-
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  reactions     Reaction[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime?  @updatedAt
 }
 
 model Post {
-  id           String        @id @default(cuid())
-  title        String        @unique
-  slug         String        @unique
-  body         String        @db.Text
-  views        Int           @default(0)
-  published    Boolean       @default(false)
-  userId       String
-  user         User          @relation(fields: [userId], references: [id])
-  comments     Comment[]
+  id        String     @id @default(cuid())
+  title     String     @unique
+  slug      String     @unique
+  body      String     @db.Text
+  views     Int        @default(0)
+  published Boolean    @default(false)
+  userId    String
+  user      User       @relation(fields: [userId], references: [id])
+  comments  Comment[]
+  reactions Reaction[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
 }
-
 
 model Comment {
   id     String @id @default(cuid())
@@ -55,4 +54,27 @@ model Comment {
 
   createdAt DateTime  @default(now())
   updatedAt DateTime? @updatedAt
+}
+
+model Reaction {
+  id           String       @id @default(uuid())
+  reactionType ReactionType
+  post         Post         @relation(fields: [postId], references: [id])
+  postId       String
+  user         User         @relation(fields: [userId], references: [id])
+  userId       String
+
+  // Ensure a user can only have one of each reaction type per story
+  @@unique([postId, userId, reactionType])
+}
+
+enum ReactionType {
+  LIKE
+  DISLIKE
+  LOVE
+  HATE
+  HAPPY
+  SAD
+  INTERESTING
+  BORING
 }
