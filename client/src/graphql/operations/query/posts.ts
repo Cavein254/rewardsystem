@@ -15,6 +15,8 @@ query GetAllPosts {
         published
         createdAt
         updatedAt
+        lovePost
+        hatePost
     }
 }
 `);

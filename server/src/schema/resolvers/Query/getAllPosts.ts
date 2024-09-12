@@ -10,10 +10,26 @@ export const getAllPosts: NonNullable<QueryResolvers['getAllPosts']> = async (
       _count: {
         select: { comments: true },
       },
+      reactions: {
+        select: { reactionType: true },
+      },
     },
     orderBy: {
       createdAt: "desc",
     },
   });
-  return posts;
+  const postWithLove = posts.map((post) => {
+    const lovePost = post.reactions.filter(
+      (reaction) => reaction.reactionType === "LOVE"
+    ).length;
+    const hatePost = post.reactions.filter(
+      (reaction) => reaction.reactionType === "HATE"
+    ).length;
+    return {
+      ...post,
+      lovePost,
+      hatePost,
+    };
+  });
+  return postWithLove;
 };

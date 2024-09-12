@@ -7,6 +7,8 @@ type Query {
   getAllComments: [Comment]
   getPostComments(postId: String!): [Comment]
   healthCheck: String
+  #Reactions
+  getPostReactions(postId: String!): SuccessReactionResults
 }
 
 type Mutation {
@@ -40,12 +42,20 @@ input CreatePostInput {
   slug: String!
   author: String!
 }
+type SuccessReactionResults {
+  success: Boolean!
+  message: String
+  data: [ReactionCount]
+}
 
 type SuccessResults {
   success: Boolean!
   message: String
 }
-
+type ReactionCount {
+  reactionType: ReactionType!
+  count: Int
+}
 type User {
   id: ID!
   name: String
@@ -66,6 +76,8 @@ type Post {
   comments: [Comment]
   _count: CommentCount
   reactions: [Reaction!]!
+  lovePost: Int
+  hatePost: Int
 }
 type CommentCount {
   comments: Int

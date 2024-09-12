@@ -1,9 +1,7 @@
 import { GraphQLError } from "graphql";
 import { GraphQLContext } from "../../../types";
 import type { MutationResolvers } from "./../../types.generated";
-export const addReaction: NonNullable<
-  MutationResolvers["addReaction"]
-> = async (_parent, arg, { prisma }: GraphQLContext) => {
+export const addReaction: NonNullable<MutationResolvers['addReaction']> = async (_parent, arg, { prisma }: GraphQLContext) => {
   const { postId, reactionType, userId } = arg.input;
   try {
     const existingReaction = await prisma.reaction.findUnique({

@@ -94,7 +94,9 @@ export type Post = {
   body?: Maybe<Scalars['String']['output']>;
   comments?: Maybe<Array<Maybe<Comment>>>;
   createdAt?: Maybe<Scalars['String']['output']>;
+  hatePost?: Maybe<Scalars['Int']['output']>;
   id: Scalars['ID']['output'];
+  lovePost?: Maybe<Scalars['Int']['output']>;
   published?: Maybe<Scalars['Boolean']['output']>;
   reactions: Array<Reaction>;
   slug?: Maybe<Scalars['String']['output']>;
@@ -126,6 +128,7 @@ export type Query = {
   getCurrentUser?: Maybe<User>;
   getPostComments?: Maybe<Array<Maybe<Comment>>>;
   getPostDetails?: Maybe<PostDetails>;
+  getPostReactions?: Maybe<SuccessReactionResults>;
   healthCheck?: Maybe<Scalars['String']['output']>;
   hello?: Maybe<Scalars['String']['output']>;
 };
@@ -140,6 +143,11 @@ export type QuerygetPostDetailsArgs = {
   slug: Scalars['String']['input'];
 };
 
+
+export type QuerygetPostReactionsArgs = {
+  postId: Scalars['String']['input'];
+};
+
 export type Reaction = {
   __typename?: 'Reaction';
   id: Scalars['ID']['output'];
@@ -148,6 +156,12 @@ export type Reaction = {
   reactionType: ReactionType;
   user: User;
   userId: Scalars['Int']['output'];
+};
+
+export type ReactionCount = {
+  __typename?: 'ReactionCount';
+  count?: Maybe<Scalars['Int']['output']>;
+  reactionType: ReactionType;
 };
 
 export type ReactionType =
@@ -159,6 +173,13 @@ export type ReactionType =
   | 'LIKE'
   | 'LOVE'
   | 'SAD';
+
+export type SuccessReactionResults = {
+  __typename?: 'SuccessReactionResults';
+  data?: Maybe<Array<Maybe<ReactionCount>>>;
+  message?: Maybe<Scalars['String']['output']>;
+  success: Scalars['Boolean']['output'];
+};
 
 export type SuccessResults = {
   __typename?: 'SuccessResults';
@@ -261,7 +282,9 @@ export type ResolversTypes = {
   PostDetails: ResolverTypeWrapper<PostDetails>;
   Query: ResolverTypeWrapper<{}>;
   Reaction: ResolverTypeWrapper<Reaction>;
+  ReactionCount: ResolverTypeWrapper<ReactionCount>;
   ReactionType: ReactionType;
+  SuccessReactionResults: ResolverTypeWrapper<SuccessReactionResults>;
   SuccessResults: ResolverTypeWrapper<SuccessResults>;
   User: ResolverTypeWrapper<User>;
 };
@@ -283,6 +306,8 @@ export type ResolversParentTypes = {
   PostDetails: PostDetails;
   Query: {};
   Reaction: Reaction;
+  ReactionCount: ReactionCount;
+  SuccessReactionResults: SuccessReactionResults;
   SuccessResults: SuccessResults;
   User: User;
 };
@@ -315,7 +340,9 @@ export type PostResolvers<ContextType = any, ParentType extends ResolversParentT
   body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   comments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hatePost?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  lovePost?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   published?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   reactions?: Resolver<Array<ResolversTypes['Reaction']>, ParentType, ContextType>;
   slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -347,6 +374,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   getCurrentUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   getPostComments?: Resolver<Maybe<Array<Maybe<ResolversTypes['Comment']>>>, ParentType, ContextType, RequireFields<QuerygetPostCommentsArgs, 'postId'>>;
   getPostDetails?: Resolver<Maybe<ResolversTypes['PostDetails']>, ParentType, ContextType, RequireFields<QuerygetPostDetailsArgs, 'slug'>>;
+  getPostReactions?: Resolver<Maybe<ResolversTypes['SuccessReactionResults']>, ParentType, ContextType, RequireFields<QuerygetPostReactionsArgs, 'postId'>>;
   healthCheck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   hello?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 };
@@ -358,6 +386,19 @@ export type ReactionResolvers<ContextType = any, ParentType extends ResolversPar
   reactionType?: Resolver<ResolversTypes['ReactionType'], ParentType, ContextType>;
   user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   userId?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ReactionCountResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReactionCount'] = ResolversParentTypes['ReactionCount']> = {
+  count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  reactionType?: Resolver<ResolversTypes['ReactionType'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SuccessReactionResultsResolvers<ContextType = any, ParentType extends ResolversParentTypes['SuccessReactionResults'] = ResolversParentTypes['SuccessReactionResults']> = {
+  data?: Resolver<Maybe<Array<Maybe<ResolversTypes['ReactionCount']>>>, ParentType, ContextType>;
+  message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  success?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -384,6 +425,8 @@ export type Resolvers<ContextType = any> = {
   PostDetails?: PostDetailsResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Reaction?: ReactionResolvers<ContextType>;
+  ReactionCount?: ReactionCountResolvers<ContextType>;
+  SuccessReactionResults?: SuccessReactionResultsResolvers<ContextType>;
   SuccessResults?: SuccessResultsResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };

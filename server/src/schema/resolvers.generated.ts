@@ -6,6 +6,7 @@ import    { getAllUsers as Query_getAllUsers } from './resolvers/Query/getAllUse
 import    { getCurrentUser as Query_getCurrentUser } from './resolvers/Query/getCurrentUser';
 import    { getPostComments as Query_getPostComments } from './resolvers/Query/getPostComments';
 import    { getPostDetails as Query_getPostDetails } from './resolvers/Query/getPostDetails';
+import    { getPostReactions as Query_getPostReactions } from './resolvers/Query/getPostReactions';
 import    { healthCheck as Query_healthCheck } from './resolvers/Query/healthCheck';
 import    { hello as Query_hello } from './resolvers/Query/hello';
 import    { addReaction as Mutation_addReaction } from './resolvers/Mutation/addReaction';
@@ -18,10 +19,12 @@ import    { CommentCount } from './resolvers/CommentCount';
 import    { Post } from './resolvers/Post';
 import    { PostDetails } from './resolvers/PostDetails';
 import    { Reaction } from './resolvers/Reaction';
+import    { ReactionCount } from './resolvers/ReactionCount';
+import    { SuccessReactionResults } from './resolvers/SuccessReactionResults';
 import    { SuccessResults } from './resolvers/SuccessResults';
 import    { User } from './resolvers/User';
     export const resolvers: Resolvers = {
-      Query: { getAllComments: Query_getAllComments,getAllPosts: Query_getAllPosts,getAllUsers: Query_getAllUsers,getCurrentUser: Query_getCurrentUser,getPostComments: Query_getPostComments,getPostDetails: Query_getPostDetails,healthCheck: Query_healthCheck,hello: Query_hello },
+      Query: { getAllComments: Query_getAllComments,getAllPosts: Query_getAllPosts,getAllUsers: Query_getAllUsers,getCurrentUser: Query_getCurrentUser,getPostComments: Query_getPostComments,getPostDetails: Query_getPostDetails,getPostReactions: Query_getPostReactions,healthCheck: Query_healthCheck,hello: Query_hello },
       Mutation: { addReaction: Mutation_addReaction,createComment: Mutation_createComment,createPost: Mutation_createPost,deleteComment: Mutation_deleteComment,incrementPageView: Mutation_incrementPageView },
       
       Comment: Comment,
@@ -29,6 +32,8 @@ CommentCount: CommentCount,
 Post: Post,
 PostDetails: PostDetails,
 Reaction: Reaction,
+ReactionCount: ReactionCount,
+SuccessReactionResults: SuccessReactionResults,
 SuccessResults: SuccessResults,
 User: User
     }

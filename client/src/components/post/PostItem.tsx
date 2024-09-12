@@ -22,11 +22,12 @@ const PostItem = ({ post }) => {
           <div className="flex gap-4">
             <span className="flex items-center">
               {" "}
-              <FaHeart size={18} className="text-red-500 mr-2 " /> Likes
+              <FaHeart size={18} className="text-red-500 mr-2 " />{" "}
+              <span className="mr-1 font-bold">{post.lovePost}</span>Likes
             </span>
             <span className="flex items-center">
               <FaHeartBroken size={18} className="text-red-500   mr-2" />{" "}
-              Disikes
+              <span className="mr-1 font-bold">{post.hatePost}</span>Disikes
             </span>
           </div>
           <span className="flex items-center">
