@@ -16,8 +16,14 @@ type Mutation {
   #comments
   createComment(input: CreateCommentInput!): SuccessResults
   deleteComment(input: ItemId!): SuccessResults
+  #Reactions
+  addReaction(input: AddReactionInput!): SuccessResults!
 }
-
+input AddReactionInput {
+  userId: String!
+  postId: String!
+  reactionType: ReactionType!
+}
 input ItemId {
   id: String!
 }
@@ -59,6 +65,7 @@ type Post {
   updatedAt: String
   comments: [Comment]
   _count: CommentCount
+  reactions: [Reaction!]!
 }
 type CommentCount {
   comments: Int
@@ -74,6 +81,7 @@ type PostDetails {
   updatedAt: String
   comments: [Comment]
   user: User
+  reactions: [Reaction]!
 }
 
 type Comment {
@@ -83,4 +91,24 @@ type Comment {
   updatedAt: String
   user: User
   postId: String
+}
+
+type Reaction {
+  id: ID!
+  reactionType: ReactionType!
+  post: Post!
+  postId: String!
+  user: User!
+  userId: Int!
+}
+
+enum ReactionType {
+  LIKE
+  DISLIKE
+  LOVE
+  HATE
+  HAPPY
+  SAD
+  INTERESTING
+  BORING
 }

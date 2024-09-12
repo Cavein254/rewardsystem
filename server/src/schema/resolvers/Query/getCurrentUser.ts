@@ -1,8 +1,6 @@
 import { GraphQLContext } from "../../../types";
 import type { QueryResolvers } from "./../../types.generated";
-export const getCurrentUser: NonNullable<
-  QueryResolvers["getCurrentUser"]
-> = async (_parent, _arg, ctx: GraphQLContext) => {
+export const getCurrentUser: NonNullable<QueryResolvers['getCurrentUser']> = async (_parent, _arg, ctx: GraphQLContext) => {
   const { prisma } = ctx;
   const { id } = await ctx.req.user;
   const credentials = await ctx.req.cookies.credentials;

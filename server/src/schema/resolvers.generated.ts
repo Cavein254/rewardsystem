@@ -8,6 +8,7 @@ import    { getPostComments as Query_getPostComments } from './resolvers/Query/g
 import    { getPostDetails as Query_getPostDetails } from './resolvers/Query/getPostDetails';
 import    { healthCheck as Query_healthCheck } from './resolvers/Query/healthCheck';
 import    { hello as Query_hello } from './resolvers/Query/hello';
+import    { addReaction as Mutation_addReaction } from './resolvers/Mutation/addReaction';
 import    { createComment as Mutation_createComment } from './resolvers/Mutation/createComment';
 import    { createPost as Mutation_createPost } from './resolvers/Mutation/createPost';
 import    { deleteComment as Mutation_deleteComment } from './resolvers/Mutation/deleteComment';
@@ -16,16 +17,18 @@ import    { Comment } from './resolvers/Comment';
 import    { CommentCount } from './resolvers/CommentCount';
 import    { Post } from './resolvers/Post';
 import    { PostDetails } from './resolvers/PostDetails';
+import    { Reaction } from './resolvers/Reaction';
 import    { SuccessResults } from './resolvers/SuccessResults';
 import    { User } from './resolvers/User';
     export const resolvers: Resolvers = {
       Query: { getAllComments: Query_getAllComments,getAllPosts: Query_getAllPosts,getAllUsers: Query_getAllUsers,getCurrentUser: Query_getCurrentUser,getPostComments: Query_getPostComments,getPostDetails: Query_getPostDetails,healthCheck: Query_healthCheck,hello: Query_hello },
-      Mutation: { createComment: Mutation_createComment,createPost: Mutation_createPost,deleteComment: Mutation_deleteComment,incrementPageView: Mutation_incrementPageView },
+      Mutation: { addReaction: Mutation_addReaction,createComment: Mutation_createComment,createPost: Mutation_createPost,deleteComment: Mutation_deleteComment,incrementPageView: Mutation_incrementPageView },
       
       Comment: Comment,
 CommentCount: CommentCount,
 Post: Post,
 PostDetails: PostDetails,
+Reaction: Reaction,
 SuccessResults: SuccessResults,
 User: User
     }

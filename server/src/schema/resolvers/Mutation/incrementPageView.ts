@@ -1,8 +1,6 @@
 import { GraphQLContext } from "../../../types";
 import type { MutationResolvers } from "./../../types.generated";
-export const incrementPageView: NonNullable<
-  MutationResolvers["incrementPageView"]
-> = async (_parent, arg, ctx: GraphQLContext) => {
+export const incrementPageView: NonNullable<MutationResolvers['incrementPageView']> = async (_parent, arg, ctx: GraphQLContext) => {
   const { postId } = arg;
   const { prisma } = ctx;
   try {
