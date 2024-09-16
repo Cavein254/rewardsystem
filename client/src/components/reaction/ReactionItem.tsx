@@ -4,7 +4,7 @@ import { ADD_POST_REACTION } from "@/graphql/operations/mutation/reaction";
 import { GET_POST_DETAILS } from "@/graphql/operations/query/posts";
 import { GET_MY_POST_REACTION } from "@/graphql/operations/query/reaction";
 import { useMutation } from "@apollo/client";
-import { ReactElement, useContext, useState } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 type ReactionData = {
@@ -29,8 +29,18 @@ const ReactionItem = ({
   const [btnActive, setBtnActive] = useState<boolean>(userInteractionItem);
   const [userCount, setUserCount] = useState(actionCount ? actionCount : 0);
   const style = btnActive ? "text-purple-500" : "";
-  console.log(`user interactin --- ${btnActive}`);
 
+  const handleUserInteraction = (userInteractionItem: boolean | undefined) => {
+    if (userInteractionItem) {
+      setBtnActive(userInteractionItem);
+    } else {
+      setBtnActive(false);
+    }
+  };
+
+  useEffect(() => {
+    handleUserInteraction(userInteractionItem);
+  }, [userInteractionItem]);
   const [addReaction] = useMutation(ADD_POST_REACTION, {
     variables: {
       input: {

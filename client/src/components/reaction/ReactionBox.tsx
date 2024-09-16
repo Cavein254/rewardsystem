@@ -37,7 +37,6 @@ const ReactionBox = ({ postId }: ReactionBoxProps) => {
       postId,
     },
     onCompleted: (data) => {
-      console.log(data);
       if (data?.getMyPostReaction?.length > 0) {
         const udata = data?.getMyPostReaction;
         setUserInteraction(udata);
@@ -54,6 +53,7 @@ const ReactionBox = ({ postId }: ReactionBoxProps) => {
     const userInteractionItem = userInteraction?.some(
       (item) => reaction.title.toUpperCase() === item.reactionType
     );
+
     return (
       <div key={reaction.title}>
         <ReactionItem
