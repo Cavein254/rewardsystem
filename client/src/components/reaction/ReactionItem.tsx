@@ -1,7 +1,6 @@
 import { ReactionCount } from "@/__generated__/graphql";
 import { AuthContext } from "@/Auth";
 import { ADD_POST_REACTION } from "@/graphql/operations/mutation/reaction";
-import { GET_POST_DETAILS } from "@/graphql/operations/query/posts";
 import { GET_MY_POST_REACTION } from "@/graphql/operations/query/reaction";
 import { useMutation } from "@apollo/client";
 import { ReactElement, useContext, useEffect, useState } from "react";

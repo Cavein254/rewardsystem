@@ -22,7 +22,6 @@ const ReactionBox = ({ postId }: ReactionBoxProps) => {
       postId,
     },
     onCompleted: (data) => {
-      console.log("event fire");
       if (data?.getPostReactions?.data) {
         const udata = data?.getPostReactions?.data;
         setStoredReaction(udata);

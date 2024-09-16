@@ -1,27 +1,20 @@
-import { GET_POST_DETAILS } from "@/graphql/operations/query/posts";
-import { useMutation, useQuery } from "@apollo/client";
-import ReactQuill from "react-quill";
-import { useParams } from "react-router-dom";
-import "./_quiltext.css";
-import Comment from "../comment/Comment";
-import CreateComment from "../comment/CreateComment";
-import { IoArrowBackCircleSharp } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
-import {
-  CREATE_COMMENT,
-  DELETE_COMMENT,
-} from "@/graphql/operations/mutation/comment";
-import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/Auth";
 import { GetPostCommentsQuery } from "@/__generated__/graphql";
+import { CREATE_COMMENT } from "@/graphql/operations/mutation/comment";
 import { INCREMENT_POST_VIEWS } from "@/graphql/operations/mutation/post";
+import { GET_POST_DETAILS } from "@/graphql/operations/query/posts";
+import { useMutation, useQuery } from "@apollo/client";
+import { useContext, useEffect, useState } from "react";
+import { IoArrowBackCircleSharp } from "react-icons/io5";
+import ReactQuill from "react-quill";
+import { useNavigate, useParams } from "react-router-dom";
+import Comment from "../comment/Comment";
+import CreateComment from "../comment/CreateComment";
 import ReactionBox from "../reaction/ReactionBox";
+import "./_quiltext.css";
 
 const PostDetails = () => {
   const { user } = useContext(AuthContext);
-  const [comments, setComments] = useState<GetPostCommentsQuery | undefined>(
-    undefined
-  );
   const userId = user?.id;
   const { slug } = useParams();
   const [body, setBody] = useState("");
