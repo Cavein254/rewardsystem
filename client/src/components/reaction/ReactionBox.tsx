@@ -6,7 +6,7 @@ import {
   GET_POST_REACTION,
 } from "@/graphql/operations/query/reaction";
 import { Reaction, ReactionCount } from "@/__generated__/graphql";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "@/Auth";
 
 interface ReactionBoxProps {
@@ -15,22 +15,38 @@ interface ReactionBoxProps {
 
 const ReactionBox = ({ postId }: ReactionBoxProps) => {
   const { user } = useContext(AuthContext);
-  const { data } = useQuery(GET_POST_REACTION, {
+  const [userInteraction, setUserInteraction] = useState<Array<Reaction>>();
+  const [storedReaction, setStoredReaction] = useState<Array<ReactionCount>>();
+  const { error } = useQuery(GET_POST_REACTION, {
     variables: {
       postId,
     },
+    onCompleted: (data) => {
+      console.log("event fire");
+      if (data?.getPostReactions?.data) {
+        const udata = data?.getPostReactions?.data;
+        setStoredReaction(udata);
+      } else {
+        setStoredReaction([]);
+      }
+    },
   });
-  const { data: myPostReaction } = useQuery(GET_MY_POST_REACTION, {
+  useQuery(GET_MY_POST_REACTION, {
     variables: {
       userId: user?.id,
       postId,
     },
+    onCompleted: (data) => {
+      console.log(data);
+      if (data?.getMyPostReaction?.length > 0) {
+        const udata = data?.getMyPostReaction;
+        setUserInteraction(udata);
+      } else setUserInteraction([]);
+    },
   });
 
-  const userInteraction: Array<Reaction> = myPostReaction?.getMyPostReaction;
-  const storedReaction = data?.getPostReactions?.data;
   const allReactions = ReactData.map((reaction) => {
-    const userAction: Array<ReactionCount> = storedReaction?.filter(
+    const userAction = storedReaction?.filter(
       (action: ReactionCount) =>
         action.reactionType === reaction.title.toUpperCase()
     );
@@ -44,6 +60,7 @@ const ReactionBox = ({ postId }: ReactionBoxProps) => {
           reaction={reaction}
           populatedUserAction={populatedUserAction}
           userInteractionItem={userInteractionItem}
+          postId={postId}
         />
       </div>
     );
