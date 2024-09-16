@@ -17,7 +17,7 @@ const ReactionBox = ({ postId }: ReactionBoxProps) => {
   const { user } = useContext(AuthContext);
   const [userInteraction, setUserInteraction] = useState<Array<Reaction>>();
   const [storedReaction, setStoredReaction] = useState<Array<ReactionCount>>();
-  const { error } = useQuery(GET_POST_REACTION, {
+  useQuery(GET_POST_REACTION, {
     variables: {
       postId,
     },

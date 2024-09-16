@@ -14,7 +14,7 @@ type ReactionData = {
 interface ReactionItemProps {
   reaction: ReactionData;
   populatedUserAction: ReactionCount | null;
-  userInteractionItem: boolean;
+  userInteractionItem: boolean | undefined;
   postId: string;
 }
 const ReactionItem = ({
@@ -26,7 +26,9 @@ const ReactionItem = ({
   const { user } = useContext(AuthContext);
   const actionCount =
     populatedUserAction !== null ? populatedUserAction.count : 0;
-  const [btnActive, setBtnActive] = useState<boolean>(userInteractionItem);
+  const [btnActive, setBtnActive] = useState<boolean | undefined>(
+    userInteractionItem
+  );
   const [userCount, setUserCount] = useState(actionCount ? actionCount : 0);
   const style = btnActive ? "text-purple-500" : "";
 
